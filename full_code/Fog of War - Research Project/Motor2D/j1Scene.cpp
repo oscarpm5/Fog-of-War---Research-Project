@@ -46,35 +46,13 @@ bool j1Scene::Start()
 bool j1Scene::PreUpdate()
 {
 
-	// debug pathfing ------------------
-	static iPoint origin;
-	static bool origin_selected = false;
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-
-	if(App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if(origin_selected == true)
-		{
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
-	}
-
 	return true;
 }
 
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	// Gui ---
+	
 	
 	// -------
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
@@ -99,23 +77,27 @@ bool j1Scene::Update(float dt)
 
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+	int map_coordinatesX;
+	int map_coordinatesY;
+	App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y, map_coordinatesX, map_coordinatesY);
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
 					App->map->data.width, App->map->data.height,
 					App->map->data.tile_width, App->map->data.tile_height,
 					App->map->data.tilesets.size(),
-					map_coordinates.x, map_coordinates.y);
+					map_coordinatesX, map_coordinatesY);
 
 	//App->win->SetTitle(title.GetString());
 
 	// Debug pathfinding ------------------------------
 	//int x, y;
 	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
+	int pX;
+	int pY;
+	App->render->ScreenToWorld(x, y,pX,pY);
+	App->map->WorldToMap(pX, pY, pX, pY);
+	App->map->MapToWorld(pX, pY, pX, pY);
 
-	App->render->Blit(debug_tex, p.x, p.y);
+	App->render->Blit(debug_tex, pX, pY);
 
 
 	return true;

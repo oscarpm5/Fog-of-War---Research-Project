@@ -54,9 +54,11 @@ void j1Map::Draw()
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
 					SDL_Rect r = tileset->GetTileRect(tile_id);
-					iPoint pos = MapToWorld(x, y);
+					int posX;
+					int posY;
+					MapToWorld(x, y,posX,posY);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					App->render->Blit(tileset->texture, posX, posY, &r);
 					
 				}
 			}
@@ -102,53 +104,50 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 	return set;
 }
 
-iPoint j1Map::MapToWorld(int x, int y) const
+void j1Map::MapToWorld(int mapX, int mapY, int& worldX, int& worldY) const
 {
-	iPoint ret;
-
+	
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x * data.tile_width;
-		ret.y = y * data.tile_height;
+		worldX = mapX * data.tile_width;
+		worldY = mapY * data.tile_height;
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
-		ret.x = (x - y) * (data.tile_width * 0.5f);
-		ret.y = (x + y) * (data.tile_height * 0.5f);
+		worldX = (mapX - mapY) * (data.tile_width * 0.5f);
+		worldY = (mapX + mapY) * (data.tile_height * 0.5f);
 	}
 	else
 	{
 		LOG("Unknown map type");
-		ret.x = x; ret.y = y;
+		worldX = mapX; worldY = mapY;
 	}
 
-	return ret;
 }
 
-iPoint j1Map::WorldToMap(int x, int y) const
+void j1Map::WorldToMap(int worldX, int worldY, int& mapX, int& mapY) const
 {
-	iPoint ret(0,0);
+	
 
 	if(data.type == MAPTYPE_ORTHOGONAL)
 	{
-		ret.x = x / data.tile_width;
-		ret.y = y / data.tile_height;
+		mapX = worldX / data.tile_width;
+		mapY = worldY / data.tile_height;
 	}
 	else if(data.type == MAPTYPE_ISOMETRIC)
 	{
 		
 		float half_width = data.tile_width * 0.5f;
 		float half_height = data.tile_height * 0.5f;
-		ret.x = int( (x / half_width + y / half_height) / 2) - 1;
-		ret.y = int( (y / half_height - (x / half_width)) / 2);
+		mapX = int( (worldX / half_width + worldY / half_height) / 2) - 1;
+		mapY = int( (worldY / half_height - (worldX / half_width)) / 2);
 	}
 	else
 	{
 		LOG("Unknown map type");
-		ret.x = x; ret.y = y;
 	}
 
-	return ret;
+	
 }
 
 SDL_Rect TileSet::GetTileRect(int id) const

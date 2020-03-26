@@ -2,7 +2,6 @@
 #define __j1RENDER_H__
 
 #include "SDL/include/SDL.h"
-#include "p2Point.h"
 #include "j1Module.h"
 
 class j1Render : public j1Module
@@ -34,7 +33,7 @@ public:
 	// Utils
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
-	iPoint ScreenToWorld(int x, int y) const;
+	void ScreenToWorld(int screenX, int screenY, int& worldX, int& worldY) const;
 
 	// Draw & Blit
 	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
