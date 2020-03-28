@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "Entity.h"
 
 struct SDL_Texture;
 class GuiImage;
@@ -34,8 +35,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void FocusCameraOnTarget();
+
 private:
 	SDL_Texture* debug_tex;
+	Entity* cameraFocusEntity=nullptr;
 };
 
 #endif // __j1SCENE_H__

@@ -37,6 +37,18 @@
     <ClCompile Include="j1Main.cpp">
       <Filter>Desenvolupament  ========\Core</Filter>
     </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========\Modules\cpp files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Desenvolupament  ========\Entities\cpp files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Desenvolupament  ========\Entities\cpp files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Desenvolupament  ========\Entities\cpp files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -84,6 +96,21 @@
     <ClInclude Include="j1Module.h">
       <Filter>Desenvolupament  ========\Core</Filter>
     </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Programacio 2 ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
+      <Filter>Desenvolupament  ========\Modules\header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Desenvolupament  ========\Entities\header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Desenvolupament  ========\Entities\header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Desenvolupament  ========\Entities\header files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -112,6 +139,15 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Core">
       <UniqueIdentifier>{9bdd82b5-f426-4a2d-8808-cc0d85684108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities">
+      <UniqueIdentifier>{4838765e-9f5e-42eb-b63b-6de1a9338e00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities\cpp files">
+      <UniqueIdentifier>{3ecdd030-39d4-4490-ab11-133eb9d0aa85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Entities\header files">
+      <UniqueIdentifier>{e04c67c3-9056-432e-bc50-33cff3581659}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
