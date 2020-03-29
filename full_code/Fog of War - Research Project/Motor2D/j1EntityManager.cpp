@@ -47,6 +47,7 @@ bool j1EntityManager::PreUpdate()
 			delete entities[i];
 			entities[i] = nullptr;
 			entities.erase(entities.begin() + i);
+			i--;
 		}
 
 	}
