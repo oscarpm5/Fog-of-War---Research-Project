@@ -78,8 +78,6 @@
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="FoWEntity.cpp" />
-    <ClCompile Include="FoWManager.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -98,9 +96,6 @@
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="FoWBitDefs.h" />
-    <ClInclude Include="FoWEntity.h" />
-    <ClInclude Include="FoWManager.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1PerfTimer.h" />

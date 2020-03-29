@@ -15,7 +15,6 @@ class j1Textures;
 class j1Scene;
 class j1Map;
 class j1EntityManager;
-class FoWManager;
 
 class j1App
 {
@@ -86,7 +85,6 @@ public:
 	j1Scene*			scene = NULL;
 	j1Map*				map = NULL;
 	j1EntityManager*	entityManager = NULL;
-	FoWManager*			fowManager = NULL;
 
 private:
 

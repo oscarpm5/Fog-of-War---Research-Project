@@ -44,7 +44,6 @@ bool j1Scene::Start()
 	App->entityManager->AddNewEntity(ENTITY_TYPE::ENEMY, { 500,500 });
 	App->entityManager->AddNewEntity(ENTITY_TYPE::ENEMY, { -350,750 });
 	cameraFocusEntity= App->entityManager->AddNewEntity(ENTITY_TYPE::PLAYER, { 0,0 });
-
 	return true;
 }
 

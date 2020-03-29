@@ -37,6 +37,9 @@
     <ClCompile Include="j1Main.cpp">
       <Filter>Desenvolupament  ========\Core</Filter>
     </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========\Modules\cpp files</Filter>
+    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Desenvolupament  ========\Entities\cpp files</Filter>
     </ClCompile>
@@ -45,15 +48,6 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Desenvolupament  ========\Entities\cpp files</Filter>
-    </ClCompile>
-    <ClCompile Include="j1EntityManager.cpp">
-      <Filter>Desenvolupament  ========\Modules\cpp files</Filter>
-    </ClCompile>
-    <ClCompile Include="FoWManager.cpp">
-      <Filter>Desenvolupament  ========\FogOfWar\cpp files</Filter>
-    </ClCompile>
-    <ClCompile Include="FoWEntity.cpp">
-      <Filter>Desenvolupament  ========\FogOfWar\cpp files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,15 +111,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Desenvolupament  ========\Entities\header files</Filter>
     </ClInclude>
-    <ClInclude Include="FoWManager.h">
-      <Filter>Desenvolupament  ========\FogOfWar\header files</Filter>
-    </ClInclude>
-    <ClInclude Include="FoWBitDefs.h">
-      <Filter>Desenvolupament  ========\FogOfWar\header files</Filter>
-    </ClInclude>
-    <ClInclude Include="FoWEntity.h">
-      <Filter>Desenvolupament  ========\FogOfWar\header files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -163,15 +148,6 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Entities\header files">
       <UniqueIdentifier>{e04c67c3-9056-432e-bc50-33cff3581659}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Desenvolupament  ========\FogOfWar">
-      <UniqueIdentifier>{a1847029-770b-4808-a1c2-323cb8e09bfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Desenvolupament  ========\FogOfWar\cpp files">
-      <UniqueIdentifier>{75f72460-6a95-478d-bcda-59c061148ea8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Desenvolupament  ========\FogOfWar\header files">
-      <UniqueIdentifier>{811b49ca-3594-44f2-9e14-d9f45c1ee232}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
