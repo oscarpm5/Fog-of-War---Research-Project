@@ -52,8 +52,6 @@ std::vector<iPoint> FoWEntity::GetTilesInsideRadius()const
 	{
 		for (int j = startingPos.x; j < finishingPos.x; j++)
 		{
-			//only pushes the tiles if they are inside the map boundaries
-			if (App->fowManager->CheckFoWTileBoundaries({ j,i }))
 				ret.push_back({ j,i });
 		}
 	}

@@ -103,11 +103,13 @@ private:
 	FoWDataStruct* fowMap = nullptr;
 
 	SDL_Texture* smoothFoWtexture = nullptr;
+	SDL_Texture* debugFoWtexture = nullptr;
 
 	std::map<unsigned short, uint> bitToTextureTable;
 
 	uint width;
 	uint height;
+	bool debugMode = false;
 };
 
 #endif // !__FOW_MANAGER_H__

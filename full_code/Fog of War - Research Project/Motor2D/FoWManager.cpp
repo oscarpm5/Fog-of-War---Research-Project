@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Render.h"
+#include "j1Input.h"
 
 FoWManager::FoWManager()
 {
@@ -29,16 +30,17 @@ bool FoWManager::Start()
 	bool ret = true;
 
 	smoothFoWtexture = App->tex->Load("maps/fogTiles.png");
-	if (smoothFoWtexture == nullptr);
+	debugFoWtexture = App->tex->Load("maps/fogTilesDebug.png");
+	
+	if (smoothFoWtexture == nullptr||debugFoWtexture==nullptr);
 	ret = false;
 
 	// Initialize the map being used to translate bits to texture ID
 	//Straight-forward cases
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_ALL, 0));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_NNN, 1));
-
-	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_EEE, 2));
-	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_WWW, 3));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_WWW, 2));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_EEE, 3));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_SSS, 4));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_CNW, 5));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_CSE, 6));
@@ -55,12 +57,12 @@ bool FoWManager::Start()
 	bitToTextureTable.insert(std::pair<unsigned short, int>(80, 10));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(17, 11));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(272, 12));
-	bitToTextureTable.insert(std::pair<unsigned short, int>(84, 13));
-	bitToTextureTable.insert(std::pair<unsigned short, int>(273, 14));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(273, 13));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(84, 14));
 	//lines
 	bitToTextureTable.insert(std::pair<unsigned short, int>(23, 1));
-	bitToTextureTable.insert(std::pair<unsigned short, int>(308, 2));
-	bitToTextureTable.insert(std::pair<unsigned short, int>(89, 3));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(308, 3));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(89, 2));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(464, 4));
 	//joints
 	bitToTextureTable.insert(std::pair<unsigned short, int>(6, 9));
@@ -99,6 +101,12 @@ bool FoWManager::PreUpdate()
 		}
 
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		ResetFoWMap();
+	}
+
 
 	return ret;
 }
@@ -189,7 +197,11 @@ void FoWManager::UpdateFoWMap()
 {
 	if (fowMap != nullptr)
 	{
-		EraseVisibleFoW();
+		for (int i = 0; i < width * height; i++)
+		{
+			fowMap[i].tileFogBits = fow_ALL;
+		}
+
 		for (int i = 0; i < fowEntities.size(); i++)
 		{
 			fowEntities[i]->Update();
@@ -199,6 +211,11 @@ void FoWManager::UpdateFoWMap()
 
 void FoWManager::DrawFoWMap()
 {
+	if (App->input->GetKey(SDL_SCANCODE_F1)==KEY_DOWN)
+	{
+		debugMode = !debugMode;
+	}
+
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -225,18 +242,25 @@ void FoWManager::DrawFoWMap()
 			iPoint worldDrawPos;
 			App->map->MapToWorld(x,y,worldDrawPos.x,worldDrawPos.y);
 
+			SDL_Texture* displayFogTexture=nullptr;
+			if (debugMode)
+			{
+				displayFogTexture = debugFoWtexture;
+			}
+			else displayFogTexture = smoothFoWtexture;
+
 			//draw fog
 			if (fogId != -1)
 			{
-				SDL_SetTextureAlphaMod(smoothFoWtexture, 128);//set the alpha of the texture to half to reproduce fog
+				SDL_SetTextureAlphaMod(displayFogTexture, 128);//set the alpha of the texture to half to reproduce fog
 				SDL_Rect r = { fogId * 64,0,64,64 }; //this rect crops the desired fog Id texture from the fogTiles spritesheet
-				App->render->Blit(smoothFoWtexture, worldDrawPos.x, worldDrawPos.y, &r);
+				App->render->Blit(displayFogTexture, worldDrawPos.x, worldDrawPos.y, &r);
 			}
 			if (shroudId != -1)
 			{
-				SDL_SetTextureAlphaMod(smoothFoWtexture, 255);//set the alpha to white again
+				SDL_SetTextureAlphaMod(displayFogTexture, 255);//set the alpha to white again
 				SDL_Rect r = { shroudId * 64,0,64,64 }; //this rect crops the desired fog Id texture from the fogTiles spritesheet
-				App->render->Blit(smoothFoWtexture, worldDrawPos.x, worldDrawPos.y, &r);
+				App->render->Blit(displayFogTexture, worldDrawPos.x, worldDrawPos.y, &r);
 			}
 
 
@@ -261,16 +285,4 @@ FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 	return entity;
 }
 
-
-void FoWManager::EraseVisibleFoW()
-{
-	for (int i = 0; i < fowEntities.size(); i++)
-	{
-		std::vector<iPoint> toErase = fowEntities[i]->GetTilesInsideRadius();
-		for (int j = 0; j < toErase.size(); j++)
-		{
-			GetFoWTileState(toErase[j])->tileFogBits = fow_ALL;
-		}
-	}
-}
 

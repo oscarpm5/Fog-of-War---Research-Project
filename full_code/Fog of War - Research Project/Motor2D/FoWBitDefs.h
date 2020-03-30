@@ -29,7 +29,7 @@
 #define fow_CSW         (FOW_BIT_W | FOW_BIT_SW | FOW_BIT_S |FOW_BIT_NW | FOW_BIT_C | FOW_BIT_SE)
 #define fow_CSE         (FOW_BIT_S | FOW_BIT_SE | FOW_BIT_E |FOW_BIT_NE | FOW_BIT_C | FOW_BIT_SW)
 
-// Inner Corners (joints)
+//Inner Corners (joints)
 #define fow_JNE         (FOW_BIT_E | FOW_BIT_NE | FOW_BIT_N)
 #define fow_JNW         (FOW_BIT_N | FOW_BIT_NW | FOW_BIT_W)
 #define fow_JSW         (FOW_BIT_W | FOW_BIT_SW | FOW_BIT_S)
