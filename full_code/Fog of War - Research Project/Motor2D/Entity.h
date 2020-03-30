@@ -8,6 +8,7 @@ enum class ENTITY_TYPE
 {
 	ENEMY,
 	PLAYER,
+	FRIENDLY,
 	UNKNOWN
 };
 
@@ -27,12 +28,12 @@ public:
 public:
 	bool deleteEntity;
 	iPoint pos;
+	FoWEntity* visionEntity=nullptr;
 protected:
 	ENTITY_TYPE type;
 	iPoint imgOffset;
 	SDL_Rect textureRect;
-	bool isVisible;//TODO FOR ME: check if this variable is really necessary (the FoW Entity has another)
-	FoWEntity* visionEntity=nullptr;
+	
 
 };
 

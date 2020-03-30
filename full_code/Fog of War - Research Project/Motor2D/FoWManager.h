@@ -42,17 +42,16 @@ public:
 	void DeleteFoWMap();
 	void UpdateFoWMap();
 	void DrawFoWMap();
-	//Resets all the visible tiles to a fogged state
-	void EraseVisibleFoW();
 
 	//Returns the visibility state of the chosen tile (given its map coordinates)
 	FoWDataStruct* GetFoWTileState(iPoint mapPos)const;
 
 	bool CheckFoWTileBoundaries(iPoint mapPos)const;
 
+	bool CheckTileVisibility(iPoint mapPos)const;
+
 	//VARIABLES
 public:
-	//TODO FOR ME: those are precomputed cirlces, in the future i will se if i can ditch this in favor of an algorithm generated circle mask
 	unsigned short circleMasks[4][fow_MAX_CIRCLE_LENGTH * fow_MAX_CIRCLE_LENGTH] =
 	{
 		{//R2

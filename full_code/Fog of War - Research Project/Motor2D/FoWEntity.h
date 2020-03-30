@@ -8,7 +8,6 @@ class FoWEntity
 {
 	//FUNCTIONS
 public:
-	//TODO FOR ME: the costructor will be given a radius in the future to generate the mask
 	FoWEntity(bool providesVisibility);
 	~FoWEntity();
 
@@ -16,11 +15,12 @@ public:
 	void Update();
 	//Changes the position to the given one in world coordinates
 	void SetNewPosition(iPoint pos);
+	iPoint GetPos()const;
 
 	void SetNewVisionRadius(uint radius);
 
-	void UpdateEntityVisibility();
 	std::vector<iPoint> GetTilesInsideRadius()const;
+
 
 private:
 	
@@ -28,12 +28,12 @@ private:
 
 	//VARIABLES
 public:
-	bool deleteEntity;
+	bool deleteEntity;	
+	bool isVisible;
 private:
 	iPoint posInMap;
 
 	bool providesVisibility;
-	bool isVisible;
 
 	//Max radius from the entity at which tiles are affected (square to be checked)
 	uint boundingBoxRadius;

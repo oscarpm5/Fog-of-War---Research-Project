@@ -4,6 +4,8 @@
 #include "p2Log.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Friendly.h"
+#include "FoWManager.h"
 
 
 j1EntityManager::j1EntityManager()
@@ -77,7 +79,17 @@ bool j1EntityManager::PostUpdate()
 
 	for (int i = 0; i < entities.size(); i++)
 	{
-		entities[i]->DrawEntity();
+		//if the current entity doesn't have a FoWEntity associated it is a special entity, draw it
+		//if it has a FoWEntity, check if it is visible or not and draw accordingly
+		if (entities[i]->visionEntity != nullptr)
+		{
+			
+			if (entities[i]->visionEntity->isVisible)
+			{
+				entities[i]->DrawEntity();
+			}
+		}
+		else entities[i]->DrawEntity();
 	}
 
 	return ret;
@@ -126,7 +138,7 @@ bool j1EntityManager::CleanUp()
 Entity* j1EntityManager::AddNewEntity(ENTITY_TYPE type, iPoint pos)
 {
 	Entity* entity = nullptr;
-	//TODO FOR ME: whenever i add a new entity type, change this switch, also complete the cases
+
 	switch (type)
 	{
 	case ENTITY_TYPE::ENEMY:
@@ -135,11 +147,15 @@ Entity* j1EntityManager::AddNewEntity(ENTITY_TYPE type, iPoint pos)
 	case ENTITY_TYPE::PLAYER:
 		entity = new Player(pos);
 		break;
+	case ENTITY_TYPE::FRIENDLY:
+		entity = new Friendly(pos);
+		break;
 	case ENTITY_TYPE::UNKNOWN:
 
 		break;
 	}
 
+	if(entity!=nullptr)
 	entities.push_back(entity);
 
 	return entity;

@@ -35,7 +35,7 @@
 #define fow_JSW         (FOW_BIT_W | FOW_BIT_SW | FOW_BIT_S)
 #define fow_JSE         (FOW_BIT_S | FOW_BIT_SE | FOW_BIT_E)
 
-//TODO FOR ME: temporal max and min radii of the circle mask
+// max and min radii of the circle mask
 #define fow_MIN_CIRCLE_RADIUS 2
 #define fow_MAX_CIRCLE_RADIUS 5
 #define fow_MAX_CIRCLE_LENGTH ((fow_MAX_CIRCLE_RADIUS*2)+1)

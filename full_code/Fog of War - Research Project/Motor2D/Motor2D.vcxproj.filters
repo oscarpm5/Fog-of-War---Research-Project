@@ -55,6 +55,9 @@
     <ClCompile Include="FoWEntity.cpp">
       <Filter>Desenvolupament  ========\FogOfWar\cpp files</Filter>
     </ClCompile>
+    <ClCompile Include="Friendly.cpp">
+      <Filter>Desenvolupament  ========\Entities\cpp files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="p2Defs.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="FoWEntity.h">
       <Filter>Desenvolupament  ========\FogOfWar\header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Friendly.h">
+      <Filter>Desenvolupament  ========\Entities\header files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

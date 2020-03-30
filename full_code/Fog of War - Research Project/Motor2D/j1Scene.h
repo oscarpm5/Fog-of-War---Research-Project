@@ -38,7 +38,7 @@ public:
 	void FocusCameraOnTarget();
 
 private:
-	SDL_Texture* debug_tex;
+	SDL_Texture* debug_tex=nullptr;
 	Entity* cameraFocusEntity=nullptr;
 };
 

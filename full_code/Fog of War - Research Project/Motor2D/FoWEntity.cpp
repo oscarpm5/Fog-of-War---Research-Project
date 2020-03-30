@@ -4,9 +4,8 @@
 #include "FoWBitDefs.h"
 #include "j1Map.h"
 
-FoWEntity::FoWEntity(bool providesVisibility) :boundingBoxRadius(3), deleteEntity(false), providesVisibility(providesVisibility),posInMap({0,0})
+FoWEntity::FoWEntity(bool providesVisibility) :boundingBoxRadius(3), deleteEntity(false), providesVisibility(providesVisibility),posInMap({0,0}),isVisible(false)
 {
-
 }
 
 
@@ -34,9 +33,11 @@ void FoWEntity::SetNewPosition(iPoint pos)
 
 void FoWEntity::SetNewVisionRadius(uint radius)
 {
+	//Changes the vision radius of the entity if there's a precomputed shape with that radius
 	if (radius >= fow_MIN_CIRCLE_RADIUS && radius <= fow_MAX_CIRCLE_RADIUS)
 	{
 		boundingBoxRadius = radius;
+		App->fowManager->UpdateFoWMap();
 	}
 }
 
@@ -82,32 +83,15 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 
 }
 
-//Applies the Mask to all tiles inside teh radius
+//Applies the Mask to all tiles inside the radius
 void FoWEntity::Update()
 {
+	if(providesVisibility)
 	ApplyMaskToTiles(GetTilesInsideRadius());
 }
 
 
-//TODO FOR ME: consider puting this function as a FoW manager one (less cache miss)
-//TODO Complete the following function: it shoud update the entity visibility accordingly (there is a bool variable for it)
-void FoWEntity::UpdateEntityVisibility()
+iPoint FoWEntity::GetPos()const
 {
-	//First check if the entity is inside the map
-	//& get the tile fog information to check if player is visible. 
-	//Note that the function that you need does both things for you, it is recommended to check and understand what the needed function does
-	
-	FoWDataStruct* tileState = App->fowManager->GetFoWTileState(posInMap);
-
-	if (tileState != nullptr)
-	{
-		//Entity will only be visible in visible areas (no fog nor shroud)
-		//Think about what happens with the smooth borders, are the considered visble or fogged?
-		if (tileState->tileFogBits != fow_ALL)
-			isVisible = true;
-		else isVisible = false;
-	}
-
+	return posInMap;
 }
-
-

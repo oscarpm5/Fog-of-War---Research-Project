@@ -1,11 +1,14 @@
 #include "Enemy.h"
 #include "SDL/include/SDL_scancode.h"
+#include "j1App.h"
+#include "FoWManager.h"
 
 Enemy::Enemy(iPoint pos) :Entity(ENTITY_TYPE::ENEMY, pos)
 {
 	textureRect = { 128,0,64,96 };
 	imgOffset.x = textureRect.w * 0.5f;
 	imgOffset.y = textureRect.h - 16;
+	visionEntity = App->fowManager->CreateFoWEntity(pos, false);
 }
 
 

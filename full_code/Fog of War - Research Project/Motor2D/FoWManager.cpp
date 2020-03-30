@@ -31,8 +31,8 @@ bool FoWManager::Start()
 
 	smoothFoWtexture = App->tex->Load("maps/fogTiles.png");
 	debugFoWtexture = App->tex->Load("maps/fogTilesDebug.png");
-	
-	if (smoothFoWtexture == nullptr||debugFoWtexture==nullptr);
+
+	if (smoothFoWtexture == nullptr || debugFoWtexture == nullptr);
 	ret = false;
 
 	// Initialize the map being used to translate bits to texture ID
@@ -106,7 +106,11 @@ bool FoWManager::PreUpdate()
 	{
 		ResetFoWMap();
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		debugMode = !debugMode;
+		UpdateFoWMap();
+	}
 
 	return ret;
 }
@@ -206,16 +210,35 @@ void FoWManager::UpdateFoWMap()
 		{
 			fowEntities[i]->Update();
 		}
+
+
+
+		if (!debugMode)
+		{
+			for (int i = 0; i < fowEntities.size(); i++)
+			{
+				if (CheckTileVisibility(fowEntities[i]->GetPos()))
+				{
+					fowEntities[i]->isVisible = true;
+				}
+				else fowEntities[i]->isVisible = false;
+
+			}
+		}
+		else
+		{
+			for (int i = 0; i < fowEntities.size(); i++)
+			{
+				fowEntities[i]->isVisible = true;
+			}
+		}
+
+
 	}
 }
 
 void FoWManager::DrawFoWMap()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1)==KEY_DOWN)
-	{
-		debugMode = !debugMode;
-	}
-
 	for (int y = 0; y < height; y++)
 	{
 		for (int x = 0; x < width; x++)
@@ -240,9 +263,9 @@ void FoWManager::DrawFoWMap()
 			}
 
 			iPoint worldDrawPos;
-			App->map->MapToWorld(x,y,worldDrawPos.x,worldDrawPos.y);
+			App->map->MapToWorld(x, y, worldDrawPos.x, worldDrawPos.y);
 
-			SDL_Texture* displayFogTexture=nullptr;
+			SDL_Texture* displayFogTexture = nullptr;
 			if (debugMode)
 			{
 				displayFogTexture = debugFoWtexture;
@@ -286,3 +309,24 @@ FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 }
 
 
+//TODO Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
+bool FoWManager::CheckTileVisibility(iPoint mapPos)const
+{
+	bool ret = false;
+	//First check if the entity is inside the map
+	//& get the tile fog information to check if is visible. 
+	//Note that the function that you need does both things for you, it is recommended to check and understand what the needed function does
+
+	FoWDataStruct* tileState = GetFoWTileState(mapPos);
+
+	if (tileState != nullptr)
+	{
+		//Entity will only be visible in visible areas (no fog nor shroud)
+		//Think about what happens with the smooth borders, are the considered visble or fogged?
+		//Also, do you need to check both the fog and shroud states?
+		if (tileState->tileFogBits != fow_ALL)
+			ret = true;
+	}
+
+	return ret;
+}
