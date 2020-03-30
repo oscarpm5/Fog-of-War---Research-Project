@@ -2,12 +2,14 @@
 #include "j1App.h"
 #include "j1Input.h"
 #include "SDL/include/SDL_scancode.h"
+#include "FoWManager.h"
 
 Player::Player(iPoint pos) :Entity(ENTITY_TYPE::PLAYER, pos)
 {
 	textureRect = {0,0,64,96};
 	imgOffset.x = textureRect.w * 0.5f;
 	imgOffset.y = textureRect.h - 16;
+	visionEntity = App->fowManager->CreateFoWEntity(pos, true);
 }
 
 
@@ -51,7 +53,7 @@ void Player::HandleInput(float dt)
 	{
 		pos.x += floor(speed*dt);
 	}
-
+	visionEntity->SetNewPosition(pos);
 }
 
 

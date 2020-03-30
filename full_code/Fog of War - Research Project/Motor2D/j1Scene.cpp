@@ -8,6 +8,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1EntityManager.h"
+#include "FoWManager.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -39,7 +40,8 @@ bool j1Scene::Start()
 	}
 
 	debug_tex = App->tex->Load("maps/path2.png");
-
+	
+	App->fowManager->CreateFoWMap(App->map->data.width, App->map->data.height);
 	
 	App->entityManager->AddNewEntity(ENTITY_TYPE::ENEMY, { 500,500 });
 	App->entityManager->AddNewEntity(ENTITY_TYPE::ENEMY, { -350,750 });

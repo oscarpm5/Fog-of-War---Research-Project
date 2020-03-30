@@ -2,6 +2,7 @@
 #define __ENTITY_H__
 
 #include "p2Point.h"
+#include "FoWEntity.h"
 
 enum class ENTITY_TYPE
 {
@@ -30,7 +31,8 @@ protected:
 	ENTITY_TYPE type;
 	iPoint imgOffset;
 	SDL_Rect textureRect;
-	bool isVisible;
+	bool isVisible;//TODO FOR ME: check if this variable is really necessary (the FoW Entity has another)
+	FoWEntity* visionEntity=nullptr;
 
 };
 
