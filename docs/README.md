@@ -1,7 +1,8 @@
 ## Welcome to GitHub Pages
-
+<details>
+  <summary>Show Solution</summary>
 You can use the [editor on GitHub](https://github.com/oscarpm5/Fog-of-War---Research-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
+</details>
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
