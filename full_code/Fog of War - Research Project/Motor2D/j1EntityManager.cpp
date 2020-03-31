@@ -109,7 +109,7 @@ bool j1EntityManager::CleanUp()
 		if (entities[i]!=nullptr)
 		{
 			delete entities[i];
-			//entities[i] = nullptr;
+			entities[i] = nullptr;
 			entities.erase(entities.begin() + i);
 			i--;
 		}

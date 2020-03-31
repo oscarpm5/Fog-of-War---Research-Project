@@ -9,6 +9,10 @@ Player::Player(iPoint pos) :Entity(ENTITY_TYPE::PLAYER, pos)
 	textureRect = {0,0,64,96};
 	imgOffset.x = textureRect.w * 0.5f;
 	imgOffset.y = textureRect.h - 16;
+
+	//TODO 2.1: The player will need to have a FoWEntity assigned to him (the variable that you need is called "visionEntity")
+	//Note that the player provides visibility to allies!
+	//Extra: you can also set its vision radius once created calling the function SetNewVisionRadius(), you can choose between a radius of 2,3,4 and 5
 	visionEntity = App->fowManager->CreateFoWEntity(pos, true);
 	visionEntity->SetNewVisionRadius(4);
 }
@@ -52,6 +56,9 @@ void Player::HandleInput(float dt)
 	{
 		pos.x += floor(speed*dt);
 	}
+
+	//TODO 4: don't forget to set the new FoWEntity position when needed!
+	//Note that player HandleInput() function is called every frame, you do not need to update the FoWEntity position each frame, only when position changes
 
 	if(auxPos!=pos)
 	visionEntity->SetNewPosition(pos);

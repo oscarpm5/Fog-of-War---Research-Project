@@ -36,23 +36,27 @@ public:
 	bool CleanUp();
 
 	FoWEntity* CreateFoWEntity(iPoint pos, bool providesVisibility);
-
+	
+	//Resets the map to its shrouded state
 	void ResetFoWMap();
 	void CreateFoWMap(uint width, uint height);
 	void DeleteFoWMap();
+	//Updates the data on the FoWMap based on the FoWEntities position and mask shape
 	void UpdateFoWMap();
 	void DrawFoWMap();
+	//Tell the map that it needs to be updated the next frame
 	void MapNeedsUpdate();
 
 	//Returns the visibility state of the chosen tile (given its map coordinates)
 	FoWDataStruct* GetFoWTileState(iPoint mapPos)const;
-
+	//Returns true if the tile is inside the map boundaries, otherwise returns false
 	bool CheckFoWTileBoundaries(iPoint mapPos)const;
-
+	//Returns true if the tile is visible (there's no FOG in it) otherwise returns false
 	bool CheckTileVisibility(iPoint mapPos)const;
 
 	//VARIABLES
 public:
+	//A number of precomputed circle masks for you to use ranging between a radius of 2 to a radius of 5
 	unsigned short circleMasks[4][fow_MAX_CIRCLE_LENGTH * fow_MAX_CIRCLE_LENGTH] =
 	{
 		{//R2
@@ -99,12 +103,15 @@ public:
 
 
 private:
+	//This is where the FoWEntites are stored
 	std::vector<FoWEntity*> fowEntities;
+	//This is where we store our FoW information
 	FoWDataStruct* fowMap = nullptr;
 
 	SDL_Texture* smoothFoWtexture = nullptr;
 	SDL_Texture* debugFoWtexture = nullptr;
 
+	//Map that we use to translate bits to Texture Id's
 	std::map<unsigned short, uint> bitToTextureTable;
 
 	uint width;

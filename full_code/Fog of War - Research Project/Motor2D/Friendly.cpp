@@ -8,6 +8,8 @@ Friendly::Friendly(iPoint pos) :Entity(ENTITY_TYPE::PLAYER, pos)
 	textureRect = { 64,0,64,96 };
 	imgOffset.x = textureRect.w * 0.5f;
 	imgOffset.y = textureRect.h - 16;
+
+	//TODO 2.2: Same as before!
 	visionEntity = App->fowManager->CreateFoWEntity(pos, true);
 	visionEntity->SetNewVisionRadius(3);
 }
@@ -52,6 +54,9 @@ void Friendly::HandleInput(float dt)
 		pos.x += floor(speed * dt);
 	}
 
+
+	//TODO 4.1: same as with the player, don't forget to set the new FoWEntity position when needed!
+	//Note that friendly unit HandleInput() function is called every frame, you do not need to update the FoWEntity position each frame, only when position changes
 	if (auxPos != pos)
 		visionEntity->SetNewPosition(pos);
 }

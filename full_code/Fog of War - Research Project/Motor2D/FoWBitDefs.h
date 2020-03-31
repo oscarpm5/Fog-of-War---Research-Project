@@ -1,16 +1,22 @@
 #ifndef __FOW_BIT_DEFS__
 #define __FOW_BIT_DEFS__
 
-#define FOW_BIT_NW  (1 << 0)
-#define FOW_BIT_N   (1 << 1)
-#define FOW_BIT_NE  (1 << 2)
-#define FOW_BIT_W   (1 << 3)
-#define FOW_BIT_C   (1 << 4)
-#define FOW_BIT_E   (1 << 5)
-#define FOW_BIT_SW  (1 << 6)
-#define FOW_BIT_S   (1 << 7)
-#define FOW_BIT_SE  (1 << 8)
+//TODO 3.1: You don't have to do anything in here! If you are interested in how we store each tile fog state read below, otherwise feel free to go to the next TODO
 
+//Imagine that we divide the tile into 9 subtiles (like in TIC TAC TOE). These first 9 defines store a value for each one of the subtiles
+//If we want a certain shape we just add the numbers of the subtiles involved
+//Example: If we want to store a diagonal line we can get the subtile on the top left corner, the one on the center and the one on the bottom right and add their values to get a unique value "ID" for that combination
+//That is what we do below, we define every shape we want
+
+#define FOW_BIT_NW  (1 << 0)//this is equal to 1* 2^0 
+#define FOW_BIT_N   (1 << 1)//this is equal to 1* 2^1
+#define FOW_BIT_NE  (1 << 2)//this is equal to 1* 2^2
+#define FOW_BIT_W   (1 << 3)//this is equal to 1* 2^3
+#define FOW_BIT_C   (1 << 4)//this is equal to 1* 2^4
+#define FOW_BIT_E   (1 << 5)//this is equal to 1* 2^5
+#define FOW_BIT_SW  (1 << 6)//this is equal to 1* 2^6
+#define FOW_BIT_S   (1 << 7)//this is equal to 1* 2^7
+#define FOW_BIT_SE  (1 << 8)//this is equal to 1* 2^8
 
 #define fow_NON         0
 #define fow_ALL         (FOW_BIT_NW | FOW_BIT_N | FOW_BIT_NE |FOW_BIT_W | FOW_BIT_C | FOW_BIT_E |FOW_BIT_SW | FOW_BIT_S | FOW_BIT_SE)

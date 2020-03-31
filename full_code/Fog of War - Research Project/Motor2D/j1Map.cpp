@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "FoWManager.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -49,17 +50,36 @@ void j1Map::Draw()
 			for(int x = 0; x < data.width; ++x)
 			{
 				int tile_id = data.layers[i]->Get(x, y);
-				if(tile_id > 0)
+				
+				//Checks if there is a tile and if there is fog in that tile before Blitting it
+				if (tile_id > 0)
 				{
-					TileSet* tileset = GetTilesetFromTileId(tile_id);
+					FoWDataStruct* fogData = App->fowManager->GetFoWTileState({ x,y });
+					if (fogData != nullptr)
+					{
+						if (fogData->tileShroudBits != fow_ALL)
+						{
+							TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id);
-					int posX;
-					int posY;
-					MapToWorld(x, y,posX,posY);
+							SDL_Rect r = tileset->GetTileRect(tile_id);
+							int posX;
+							int posY;
+							MapToWorld(x, y, posX, posY);
 
-					App->render->Blit(tileset->texture, posX, posY, &r);
-					
+							App->render->Blit(tileset->texture, posX, posY, &r);
+						}
+					}
+					else
+					{
+						TileSet* tileset = GetTilesetFromTileId(tile_id);
+
+						SDL_Rect r = tileset->GetTileRect(tile_id);
+						int posX;
+						int posY;
+						MapToWorld(x, y, posX, posY);
+
+						App->render->Blit(tileset->texture, posX, posY, &r);
+					}
 				}
 			}
 		}

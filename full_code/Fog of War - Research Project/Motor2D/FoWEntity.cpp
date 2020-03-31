@@ -4,8 +4,9 @@
 #include "FoWBitDefs.h"
 #include "j1Map.h"
 
-FoWEntity::FoWEntity(bool providesVisibility) :boundingBoxRadius(3), deleteEntity(false), providesVisibility(providesVisibility),posInMap({0,0}),isVisible(false)
+FoWEntity::FoWEntity(iPoint WorldPos,bool providesVisibility) :boundingBoxRadius(3), deleteEntity(false), providesVisibility(providesVisibility),posInMap({0,0}),isVisible(false)
 {
+	SetNewPosition(WorldPos);
 }
 
 
@@ -60,19 +61,25 @@ std::vector<iPoint> FoWEntity::GetTilesInsideRadius()const
 	return ret;
 }
 
-
+//TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
 void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 {
 
-	//We first take the correct precomputed mask
+	//We first take the correct precomputed mask and store it in the precMask variable (it is recommended to see what they are made of. You can find the masks at the FoWManager.h module)
+	//Note that it is an array
 	unsigned short* precMask = &App->fowManager->circleMasks[boundingBoxRadius - fow_MIN_CIRCLE_RADIUS][0];
 
+	//You have to complete the code inside this for
 	for (int i = 0; i < tilesAffected.size(); i++)
 	{
-		//We then take the fog & shroud values of each affected tile
+		//You have to reques the fog & shroud values of each affected tile. Hint:(You can take both with a single function call)
 		FoWDataStruct* tileValue = App->fowManager->GetFoWTileState(tilesAffected[i]);
 
-		//And bitwise AND them with the mask
+		//And (bitwise AND) them with the mask if the tile FoW values are not nullptr
+		//To bitwise AND values you just simply do this: value1 &= value2 
+		//the operation result will be stored in the variable on the left side. 
+		//In this case you want to modify the fog and shroud values that you have requested above
+
 		if (tileValue != nullptr)
 		{
 			tileValue->tileShroudBits &= *precMask;

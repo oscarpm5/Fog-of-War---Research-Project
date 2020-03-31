@@ -8,7 +8,7 @@ class FoWEntity
 {
 	//FUNCTIONS
 public:
-	FoWEntity(bool providesVisibility);
+	FoWEntity(iPoint WorldPos,bool providesVisibility);
 	~FoWEntity();
 
 	bool CleanUp();

@@ -11,12 +11,16 @@ Entity::Entity(ENTITY_TYPE type, iPoint pos) :type(type), pos(pos),deleteEntity(
 
 Entity::~Entity()
 {
-
+	CleanUp();
 }
 
 
 bool Entity::CleanUp()
 {
+	if (visionEntity != nullptr)
+	{
+		visionEntity->deleteEntity = true;
+	}
 	return true;
 }
 

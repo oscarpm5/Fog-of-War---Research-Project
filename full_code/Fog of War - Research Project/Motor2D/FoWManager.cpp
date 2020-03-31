@@ -13,7 +13,7 @@ FoWManager::FoWManager()
 
 FoWManager::~FoWManager()
 {
-
+	CleanUp();
 }
 
 
@@ -35,7 +35,7 @@ bool FoWManager::Start()
 	if (smoothFoWtexture == nullptr || debugFoWtexture == nullptr);
 	ret = false;
 
-	// Initialize the map being used to translate bits to texture ID
+	//---------Initialize the map being used to translate bits to texture ID---------//
 	//Straight-forward cases
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_ALL, 0));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_NNN, 1));
@@ -78,7 +78,7 @@ bool FoWManager::Start()
 	bitToTextureTable.insert(std::pair<unsigned short, int>(64, 10));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(1, 11));
 	bitToTextureTable.insert(std::pair<unsigned short, int>(256, 12));
-	//end of map initialization
+	//------------------------end of map initialization------------------------//
 
 
 
@@ -90,6 +90,7 @@ bool FoWManager::PreUpdate()
 {
 	bool ret = true;
 
+	//deletes all the entities that request to do so
 	for (int i = 0; i < fowEntities.size(); i++)
 	{
 		if (fowEntities[i]->deleteEntity)
@@ -102,6 +103,7 @@ bool FoWManager::PreUpdate()
 
 	}
 
+	//debug input handling
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		ResetFoWMap();
@@ -121,6 +123,7 @@ bool FoWManager::Update(float dt)
 {
 	bool ret = true;
 
+	//We update the fowMap only when its needed
 	if (foWMapNeedsRefresh)
 	{
 		UpdateFoWMap();
@@ -141,6 +144,35 @@ bool FoWManager::PostUpdate()
 bool FoWManager::CleanUp()
 {
 	bool ret = true;
+	DeleteFoWMap();
+
+	int i = 0;
+	while (fowEntities.size() > 0)
+	{
+
+
+		if (fowEntities[i] != nullptr)
+		{
+			delete fowEntities[i];
+			fowEntities[i] = nullptr;
+			fowEntities.erase(fowEntities.begin() + i);
+			i--;
+		}
+		i++;
+	}
+	fowEntities.clear();
+
+
+	if (debugFoWtexture != nullptr)
+	{
+		App->tex->UnLoad(debugFoWtexture);
+		debugFoWtexture = nullptr;
+	}
+	if (smoothFoWtexture != nullptr)
+	{
+		App->tex->UnLoad(smoothFoWtexture);
+		smoothFoWtexture = nullptr;
+	}
 
 	return ret;
 }
@@ -162,7 +194,7 @@ void FoWManager::ResetFoWMap()
 FoWDataStruct* FoWManager::GetFoWTileState(iPoint mapPos)const
 {
 	FoWDataStruct* ret = nullptr;
-	if (CheckFoWTileBoundaries(mapPos))
+	if (CheckFoWTileBoundaries(mapPos)&&fowMap!=nullptr)
 	{
 		ret = &fowMap[(mapPos.y * width) + mapPos.x];
 	}
@@ -185,11 +217,15 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 	width = w;
 	height = h;
 
+	//TODO 1: Complete this function to create a FoWMap. EASY!
+	//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
+	//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map should be stored in the variable "fowMap"
+	//Don't forget to reset it once is creeated, hint: there's another function for that :)
 	DeleteFoWMap();
-
 	fowMap = new FoWDataStruct[width * height];
-
 	ResetFoWMap();
+
+	MapNeedsUpdate();
 }
 
 
@@ -298,29 +334,30 @@ void FoWManager::DrawFoWMap()
 	}
 }
 
-
+//TODO 2: Complete this function: given a position and a flag, create a new entity and return a pointer to it (or nullptr if something has gone wrong)
+//Note that the FoWManager needs to know about the entity we are creating, try to find where the FoWManager module stores all the FoWEntities and add it there
 FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 {
 	FoWEntity* entity = nullptr;
 
-	entity = new FoWEntity(providesVisibility);
+	entity = new FoWEntity(pos,providesVisibility);
 
 	if (entity != nullptr)
 	{
 		fowEntities.push_back(entity);
-		entity->SetNewPosition(pos);
 	}
 
 	return entity;
 }
 
 
-//TODO Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
+//TODO 5: Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
+//This function will be used to check if we need to draw a certain entity
 bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 {
 	bool ret = false;
 	//First check if the entity is inside the map
-	//& get the tile fog information to check if is visible. 
+	//& get the tile fog information,its state, to check if is visible. 
 	//Note that the function that you need does both things for you, it is recommended to check and understand what the needed function does
 
 	FoWDataStruct* tileState = GetFoWTileState(mapPos);
