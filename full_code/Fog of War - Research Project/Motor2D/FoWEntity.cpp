@@ -72,7 +72,7 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 	//You have to complete the code inside this for
 	for (int i = 0; i < tilesAffected.size(); i++)
 	{
-		//You have to reques the fog & shroud values of each affected tile. Hint:(You can take both with a single function call)
+		//You have to request the fog & shroud values of each affected tile. Hint:(You can take both with a single function call)
 		FoWDataStruct* tileValue = App->fowManager->GetFoWTileState(tilesAffected[i]);
 
 		//And (bitwise AND) them with the mask if the tile FoW values are not nullptr

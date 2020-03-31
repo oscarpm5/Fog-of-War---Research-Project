@@ -36,7 +36,6 @@ void Friendly::HandleInput(float dt)
 {
 	int speed = 200;
 
-	iPoint auxPos = pos;
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
