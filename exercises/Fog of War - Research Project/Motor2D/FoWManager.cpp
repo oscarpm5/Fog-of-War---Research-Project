@@ -223,9 +223,10 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 	//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
 	//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map should be stored in the variable "fowMap"
 	//Don't forget to reset it once is creeated, hint: there's another function for that :)
-	DeleteFoWMap();
-	fowMap = new FoWDataStruct[width * height];
-	ResetFoWMap();
+	
+
+
+
 
 	MapNeedsUpdate();
 }
@@ -340,16 +341,12 @@ void FoWManager::DrawFoWMap()
 //Note that the FoWManager needs to know about the entity we are creating, try to find where the FoWManager module stores all the FoWEntities and add it there
 FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 {
-	FoWEntity* entity = nullptr;
+	
 
-	entity = new FoWEntity(pos,providesVisibility);
 
-	if (entity != nullptr)
-	{
-		fowEntities.push_back(entity);
-	}
 
-	return entity;
+
+	return nullptr;
 }
 
 
@@ -362,16 +359,12 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 	//& get the tile fog information,its state, to check if is visible. 
 	//Note that the function that you need does both things for you, it is recommended to check and understand what the needed function does
 
-	FoWDataStruct* tileState = GetFoWTileState(mapPos);
 
-	if (tileState != nullptr)
-	{
+	
 		//Entity will only be visible in visible areas (no fog nor shroud)
 		//Think about what happens with the smooth borders, are the considered visble or fogged?
 		//Also, do you need to check both the fog and shroud states?
-		if (tileState->tileFogBits != fow_ALL)
-			ret = true;
-	}
+	
 
 	return ret;
 }
