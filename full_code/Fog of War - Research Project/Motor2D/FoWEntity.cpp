@@ -26,7 +26,7 @@ bool FoWEntity::CleanUp()
 void FoWEntity::SetNewPosition(iPoint pos)
 {
 	App->map->WorldToMap(pos.x, pos.y, posInMap.x, posInMap.y);
-	App->fowManager->UpdateFoWMap();
+	App->fowManager->MapNeedsUpdate();
 
 }
 
@@ -37,7 +37,7 @@ void FoWEntity::SetNewVisionRadius(uint radius)
 	if (radius >= fow_MIN_CIRCLE_RADIUS && radius <= fow_MAX_CIRCLE_RADIUS)
 	{
 		boundingBoxRadius = radius;
-		App->fowManager->UpdateFoWMap();
+		App->fowManager->MapNeedsUpdate();
 	}
 }
 

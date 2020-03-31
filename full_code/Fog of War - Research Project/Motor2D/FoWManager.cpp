@@ -105,11 +105,12 @@ bool FoWManager::PreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		ResetFoWMap();
+		MapNeedsUpdate();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		debugMode = !debugMode;
-		UpdateFoWMap();
+		MapNeedsUpdate();
 	}
 
 	return ret;
@@ -120,6 +121,11 @@ bool FoWManager::Update(float dt)
 {
 	bool ret = true;
 
+	if (foWMapNeedsRefresh)
+	{
+		UpdateFoWMap();
+		foWMapNeedsRefresh = false;
+	}
 	return ret;
 }
 
@@ -329,4 +335,10 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 	}
 
 	return ret;
+}
+
+void FoWManager::MapNeedsUpdate()
+{
+	if (foWMapNeedsRefresh==false)
+		foWMapNeedsRefresh=true;
 }

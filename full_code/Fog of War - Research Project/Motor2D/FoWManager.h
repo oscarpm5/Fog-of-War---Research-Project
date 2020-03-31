@@ -42,6 +42,7 @@ public:
 	void DeleteFoWMap();
 	void UpdateFoWMap();
 	void DrawFoWMap();
+	void MapNeedsUpdate();
 
 	//Returns the visibility state of the chosen tile (given its map coordinates)
 	FoWDataStruct* GetFoWTileState(iPoint mapPos)const;
@@ -109,6 +110,7 @@ private:
 	uint width;
 	uint height;
 	bool debugMode = false;
+	bool foWMapNeedsRefresh = false;
 };
 
 #endif // !__FOW_MANAGER_H__
