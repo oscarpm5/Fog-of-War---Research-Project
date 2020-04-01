@@ -31,6 +31,7 @@ An example of a game that consist ony of visible areas and foggy areas is League
 
 The ones with fog and shroud have two types of fog instead of one, where the fog consist of areas that have been discovered but are not visible at the moment and thus the things seen in those areas are the ones players saw last time they were in there and the shroud consists of unexplored territory, usually represented with a black texture representing a void. Iron Marines is a great example of a game with this type of FoW:
 
+This first image shows a conecpt art of what the FoW in the game would be and in the second image we see the FoW already implemented.
 <p align="center">
 <img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Iron%20Marines%20FoW%20Concept%20Art.png" width="700">
 </p>
@@ -83,7 +84,28 @@ Now that we understand what types of FoW exist, lets take a look on how do they 
 
 
 # Selected Approach
+Our approach will consist of bitmasking sub-pixels. Altough by the name it may seem hard to comprehend I assure you it is easier to understand than you think. 
 
+To make the system work we fisrt need a FoW map, an array representing every tile in our 2D map. We will use the fog & shroud type of fog explained above, so we will need two "layers" for the map, one for the shroud and another for the fog. The array we will use consists of a struct with two numbers, one for each layer. 
+This is how it looks in code: 
+
+```cpp
+struct FoWDataStruct
+{
+	unsigned short tileFogBits;
+	unsigned short tileShroudBits; 
+};
+
+```
+Each variable on the struct will hold a number that refers to a certain combination of subpixels that can be translated into smooth FoW textures! So we will divide each map tile into a grid of 3x3 sub-pixels, this is 9 sub-pixels in total. You have to imagine it being like this:
+
+//Sub-Pixel Grid Image
+
+So this grid will describe the amount of fog we have in each tile, with each sub-pixel being represented by a single bit. Note that you can choose the amount of bits you want, more bits means more possibilities but take into account that the higher the number of sub-pixels the bigger the table that translates bits into textures needs to be. For a 3x3 sub-pixel grid we will need 9 bits, that is the equivalent of a table with 512 entries.
+
+//Sub-Pixel to Texture image
+
+You don't need to define all 512 entries though, just the ones you care about. For example, maybe you don't care if a grid has only bit 4 set so you have no need to display it and thus don't define it.
 
 # More Documentation
 
