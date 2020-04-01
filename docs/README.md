@@ -712,7 +712,7 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 </details>
 
 ## Homework
-Well done! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.
+Well done! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.<br>
 First check the Fow Manager module's function DrawFoWMap() and make sure you understand how it draws the FoW tiles. Then try to create a precomputed shape mask by yourself: You will only need to go to the FoW Manager header file and search for a variable named "circle masks"; you can then create an array of defines just as the ones that are already set there for you. Note that every time that you create a new mask you have to increment the number [4] next to the variable name. Feel free to experiment with new shapes!
 
 ## Possible Improvements
