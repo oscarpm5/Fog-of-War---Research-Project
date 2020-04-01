@@ -551,7 +551,6 @@ TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 ## TODO 3 - Applying the BitMask
 The real deal! This function is the most important one in the code, and you need to understand it very well. This is the function that changes the data in the FoW map based on a bit Mask. Half of the function has already been done and the other half is there for you to complete. There is also a TODO 3.1 but you have to do nothing there, it has been created only to point you to some useful information to complement your understanding of the function in this TODO, it is recommended that you read it if you want a deeper understanding of the system.<br>
 
-
 ```cpp
 //TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
 void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
@@ -586,7 +585,6 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 <br>
 <details>
   <summary>Show Solution</summary>
-<br>
 	
 ```cpp
 //TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
@@ -619,8 +617,6 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 }
 
 ```
-
-<br>
 </details>
 
 ## TODO 4 - Updating FoW Entites Position
