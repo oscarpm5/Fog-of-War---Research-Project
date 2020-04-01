@@ -195,7 +195,7 @@ Where the straightforward cases' bit values have already been define in here:
 #define fow_JSE         (FOW_BIT_S | FOW_BIT_SE | FOW_BIT_E)
 
 ```
-The combinations that I don't care about just aren't defined in this map.
+The combinations that we don't care about just aren't defined.
 
 So now that we have all of our tiles defined it is time to create the shape masks that will be used to mask out shapes from the fog. This is also when we take advantadge of the defines we have just set up to make it easy for programmers to create the masks. This is an example of a circle mask of radius 3:
 
@@ -238,6 +238,153 @@ void ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 
 }
 ```
+
+With this we have a functional FoW system and we just need to print it to the screen to visualize the data.
+To draw the fog we simply traverse the fog map and use the bits in combination with the translation table to get the correct texture for each tile.
+## Code Structure
+To make this project I have made two modules:
+- The first contains an abstraction of an entity that stores its position and the radius of vision of the entity. It also has a flag that determines if the entity can see and another that determines if the entity is visible or obscured by the fog.
+```cpp
+class FoWEntity
+{
+public:
+	FoWEntity(iPoint WorldPos,bool providesVisibility);
+	~FoWEntity();
+
+	bool CleanUp();
+	void Update();
+	void SetNewPosition(iPoint pos);
+	iPoint GetPos()const;
+
+	void SetNewVisionRadius(uint radius);
+	std::vector<iPoint> GetTilesInsideRadius()const;
+
+
+private:
+	void ApplyMaskToTiles(std::vector<iPoint>tilesAffected);
+
+	
+public:
+	bool deleteEntity;	
+	bool isVisible;
+private:
+	iPoint posInMap;
+	bool providesVisibility;
+
+	//Max radius from the entity at which tiles are affected (square to be checked)
+	uint boundingBoxRadius;
+};
+```
+-The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile
+```cpp
+//this struct holds the information of fog and shroud for every tile
+struct FoWDataStruct
+{
+	unsigned short tileFogBits; //saves information about which type of fog are we in (useful for smooth edges)
+	unsigned short tileShroudBits; //same as above but for shroud
+};
+
+
+class FoWManager :public j1Module
+{
+public:
+	FoWManager();
+	~FoWManager();
+
+	bool Awake(pugi::xml_node&);
+	bool Start();
+	bool PreUpdate();
+	bool Update(float dt);
+	bool PostUpdate();
+	bool CleanUp();
+
+	FoWEntity* CreateFoWEntity(iPoint pos, bool providesVisibility);
+	
+	//Resets the map to its shrouded state
+	void ResetFoWMap();
+	void CreateFoWMap(uint width, uint height);
+	void DeleteFoWMap();
+	//Updates the data on the FoWMap based on the FoWEntities position and mask shape
+	void UpdateFoWMap();
+	void DrawFoWMap();
+	//Tell the map that it needs to be updated the next frame
+	void MapNeedsUpdate();
+
+	//Returns the visibility state of the chosen tile (given its map coordinates)
+	FoWDataStruct* GetFoWTileState(iPoint mapPos)const;
+	//Returns true if the tile is inside the map boundaries, otherwise returns false
+	bool CheckFoWTileBoundaries(iPoint mapPos)const;
+	//Returns true if the tile is visible (there's no FOG in it) otherwise returns false
+	bool CheckTileVisibility(iPoint mapPos)const;
+
+public:
+	//A number of precomputed circle masks ranging between a radius of 2 to a radius of 5
+	unsigned short circleMasks[4][fow_MAX_CIRCLE_LENGTH * fow_MAX_CIRCLE_LENGTH] =
+	{
+		{//R2
+		fow_ALL, fow_CNW, fow_NNN, fow_CNE, fow_ALL,
+		fow_CNW, fow_JNW, fow_NON, fow_JNE, fow_CNE,
+		fow_WWW, fow_NON, fow_NON, fow_NON, fow_EEE,
+		fow_CSW, fow_JSW, fow_NON, fow_JSE, fow_CSE,
+		fow_ALL, fow_CSW, fow_SSS, fow_CSE, fow_ALL,
+		},
+		{//R3
+		fow_ALL, fow_ALL, fow_CNW, fow_NNN, fow_CNE, fow_ALL, fow_ALL,
+		fow_ALL, fow_CNW, fow_JNW, fow_NON, fow_JNE, fow_CNE, fow_ALL,
+		fow_CNW, fow_JNW, fow_NON, fow_NON, fow_NON, fow_JNE, fow_CNE,
+		fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE,
+		fow_CSW, fow_JSW, fow_NON, fow_NON, fow_NON, fow_JSE, fow_CSE,
+		fow_ALL, fow_CSW, fow_JSW, fow_NON, fow_JSE, fow_CSE, fow_ALL,
+		fow_ALL, fow_ALL, fow_CSW, fow_SSS, fow_CSE, fow_ALL, fow_ALL,
+		},
+		{//R4
+		fow_ALL, fow_ALL, fow_CNW, fow_NNN, fow_NNN, fow_NNN, fow_CNE, fow_ALL, fow_ALL,
+		fow_ALL, fow_CNW, fow_JNW, fow_NON, fow_NON, fow_NON, fow_JNE, fow_CNE, fow_ALL,
+		fow_CNW, fow_JNW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_JNE, fow_CNE,
+		fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE,
+		fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE,
+		fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE,
+		fow_CSW, fow_JSW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_JSE, fow_CSE,
+		fow_ALL, fow_CSW, fow_JSW, fow_NON, fow_NON, fow_NON, fow_JSE, fow_CSE, fow_ALL,
+		fow_ALL, fow_ALL, fow_CSW, fow_SSS, fow_SSS, fow_SSS, fow_CSE, fow_ALL, fow_ALL,
+		},
+		{//R5
+		fow_ALL, fow_ALL, fow_ALL, fow_ALL, fow_CNW, fow_NNN, fow_CNE, fow_ALL, fow_ALL, fow_ALL, fow_ALL,
+		fow_ALL, fow_ALL, fow_CNW, fow_NNN, fow_JNW, fow_NON, fow_JNE, fow_NNN, fow_CNE, fow_ALL, fow_ALL,
+		fow_ALL, fow_CNW, fow_JNW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_JNE, fow_CNE, fow_ALL,
+		fow_ALL, fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE, fow_ALL,
+		fow_CNW, fow_JNW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_JNE, fow_CNE,
+		fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE,
+		fow_CSW, fow_JSW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_JSE, fow_CSE,
+		fow_ALL, fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE, fow_ALL,
+		fow_ALL, fow_CSW, fow_JSW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_JSE, fow_CSE, fow_ALL,
+		fow_ALL, fow_ALL, fow_CSW, fow_SSS, fow_JSW, fow_NON, fow_JSE, fow_SSS, fow_CSE, fow_ALL, fow_ALL,
+		fow_ALL, fow_ALL, fow_ALL, fow_ALL, fow_CSW, fow_SSS, fow_CSE, fow_ALL, fow_ALL, fow_ALL, fow_ALL,
+		},
+	};
+
+
+private:
+	//This is where the FoWEntites are stored
+	std::vector<FoWEntity*> fowEntities;
+	//This is where we store our FoW information
+	FoWDataStruct* fowMap = nullptr;
+
+	//Textures to use when drawing
+	SDL_Texture* smoothFoWtexture = nullptr;
+	SDL_Texture* debugFoWtexture = nullptr;
+
+	//Map that we use to translate bits to Texture Id's
+	std::map<unsigned short, uint> bitToTextureTable;
+
+	uint width;
+	uint height;
+	bool debugMode = false;
+	bool foWMapNeedsRefresh = false;
+};
+```
+
+Each entity in the entity system that we want to provide or interact with visibility contains a pointer to a FoWEntity and we have to update the position of the FoWEntity every time we want to move the entity containing it.
 
 # More Documentation
 
