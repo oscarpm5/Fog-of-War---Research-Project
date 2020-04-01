@@ -12,7 +12,9 @@ Fog of war, FoW from now on, is a term used in armed conflicts that was first de
 
 In videogames this expression is used to describe unexplored or hidden terrain or map areas. It is mostly used in strategy and roleplay videogames: the former uses it to hide information about what other players are doing and thus making the game more interesting by forcing the player to take risks, gather intel or predict what others might do. The latter uses FoW to tell the players that, although they might have discovered a certain area of the playable map, they still have much more to discover and thus encourage exploration.
 
-//Empire Image Here
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Empire%20VideoGame.png" width="700">
+</p>
 
 This image shows the videogame "Empire" by Walter Bright, released in 1977, being the first videogame that used FoW.
 
@@ -29,14 +31,23 @@ An example of a game that consist ony of visible areas and foggy areas is League
 
 The ones with fog and shroud have two types of fog instead of one, where the fog consist of areas that have been discovered but are not visible at the moment and thus the things seen in those areas are the ones players saw last time they were in there and the shroud consists of unexplored territory, usually represented with a black texture representing a void. Iron Marines is a great example of a game with this type of FoW:
 
-//Iron Marines FoW concept art
-//Iron Marines In-Game FoW
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Iron%20Marines%20FoW%20Concept%20Art.png" width="700">
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Iron%20Marines%20In-Game%20FoW.png" width="700">
+</p>
 
 There is also a 3rd type, not that common nowadays but it certainly was in the past: a mix between fog and fog & shroud. That is only shroud; where the player has full vision of the explored territories and knows nothing about unexplored areas, with a hard transition between full visible and pitch black. Dune 2 is a great example of it:
 
-//Dune 2 FoW
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Dune%202%20FoW.gif" width="700">
+</p>
+
 We find the same type of fog in Warcraft: Orcs and Humans
-//Warcraft: Orcs and humans FoW
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Warcraft_Orcs%20and%20Humans%20FoW.png" width="700">
+</p>
 
 ### Chunky / Smooth
 The second parameter will let us define how our FoW looks and feels.
@@ -45,17 +56,23 @@ While chunky fog is the easiest to implement it is also the less common to go wi
 
 Here is an image of some testing done in Iron Marines so you can compare it with the look and feel that the two previous shown images of the same game have:
 
-//Iron Marines In-Game CHUNKY FoW
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Iron%20Marines%20In-Game%20FoW%20CHUNKY.png" width="700">
+</p>
 
 And here is an example of what a chunky FoW system looks like in a modern game with 3D terrain:
 
-//Knights Merchant FoW Chunky
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Knights%20Merchant%20FoW%20CHUNKY.png" width="700">
+</p>
 
 Smooth FoW is a little bit harder to implement than the chunky one but it provides far better visuar results in 2D games nevertheless. There are many ways to get a cool looking smooth FoW ranging from methods like Bitmap Masking, blurring a FoW texture or using algorithms like the neighbour aware tile selection method and the marching squares to print only the fogged area into a texture. Some of those approaches will be covered more in depth below.
 
 Here is an example of a game that uses smooth FoW and also fog & shroud: Age of Empires.
 
-//Age of Empires Smooth FoW
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Age%20of%20Empires%20SMOOTH%20FoW.jpg" width="700">
+</p>
 
 
 # Different Approaches
