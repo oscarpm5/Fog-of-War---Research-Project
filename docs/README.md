@@ -398,6 +398,9 @@ Each entity in the entity system that we want to provide or interact with visibi
 - [What are Bitshift operators?](https://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work)
 - [Compound Bitwise operators](https://rambutan.readthedocs.io/projects/librambutan/en/master/lang/cpp/compoundbitwise.html)
 - [Bitwise operators in C/C++](https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/)
+- [Fog of War videogame examples](https://tvtropes.org/pmwiki/pmwiki.php/Main/FogOfWar)
+- [Fog of War through textures](http://damienclassen.blogspot.com/2014/02/implementing-fog-of-war.html)
+- [Gaussian Blur](http://rastergrid.com/blog/2010/09/efficient-gaussian-blur-with-linear-sampling/)
 
 # TODO's
 We are now ready to complete the TODO's!
