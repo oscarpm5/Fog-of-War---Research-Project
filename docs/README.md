@@ -438,25 +438,25 @@ void FoWManager::CreateFoWMap(uint w, uint h)
   <summary>Show Solution</summary>
 <br>
 
-	```cpp
+```cpp
 	
-	void FoWManager::CreateFoWMap(uint w, uint h)
-	{
-		width = w;
-		height = h;
+void FoWManager::CreateFoWMap(uint w, uint h)
+{
+	width = w;
+	height = h;
 
-		//TODO 1: Complete this function to create a FoWMap. EASY!
-		//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
-		//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map 		should be stored in the variable "fowMap"
-		//Don't forget to reset it once is creeated, hint: there's another function for that :)
-		DeleteFoWMap();
-		fowMap = new FoWDataStruct[width * height];
-		ResetFoWMap();
+	//TODO 1: Complete this function to create a FoWMap. EASY!
+	//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
+	//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map should be stored in the variable "fowMap"
+	//Don't forget to reset it once is creeated, hint: there's another function for that :)
+	DeleteFoWMap();
+	fowMap = new FoWDataStruct[width * height];
+	ResetFoWMap();
 
-		MapNeedsUpdate();
-	}
+	MapNeedsUpdate();
+}
 	
-	```
+```
 
 <br>
 </details>
