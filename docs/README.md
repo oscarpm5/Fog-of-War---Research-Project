@@ -277,7 +277,7 @@ private:
 };
 ```
 
--The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile<br>
+- The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile<br>
 
 ```cpp
 //this struct holds the information of fog and shroud for every tile
