@@ -433,10 +433,7 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 }
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
-<br>
+Solution:
 
 ```cpp
 	
@@ -458,9 +455,6 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 	
 ```
 
-<br>
-</details>
-
 ## TODO 2 - Creating FoW Entites
 In this series of TODO's you will learn how the map interacts with the entities in the world. This first TODO shows how FoW Entites (abstractions of normal entities for the FoW manager to work with) work:<br>
 
@@ -474,10 +468,7 @@ FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 }
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
-	<br>
+Solution:
 	
 ```cpp
 //TODO 2: Complete this function: given a position and a flag, create a new entity and return a pointer to it (or nullptr if something has gone wrong)
@@ -497,9 +488,6 @@ FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 }
 ```
 
-<br>
-</details>
-
 TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 ### TODO 2.1 - TODO 2.2
 
@@ -511,10 +499,7 @@ TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 //Code here
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
-<br>
+Solution:
 	
 ```cpp
 //TODO 2.1 / TODO 2.2: The player will need to have a FoWEntity assigned to him (the variable that you need is called "visionEntity")
@@ -524,9 +509,6 @@ TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 	visionEntity->SetNewVisionRadius(4);
 ```
 
-<br>
-</details>
-
 ### TODO 2.3
 
 ```cpp
@@ -535,18 +517,12 @@ TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 //Code here
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
-<br>
+Solution:
 	
 ```cpp
 //TODO 2.3: Same as before! BUT, this unit is an enemy, it does not provide visibility! As a consequence, it doesn't matter if you change its radius of vision as it sees nothing :)
 	visionEntity = App->fowManager->CreateFoWEntity(pos, false);
 ```
-
-<br>
-</details>
 
 ## TODO 3 - Applying the BitMask
 The real deal! This function is the most important one in the code, and you need to understand it very well. This is the function that changes the data in the FoW map based on a bit Mask. Half of the function has already been done and the other half is there for you to complete. There is also a TODO 3.1 but you have to do nothing there, it has been created only to point you to some useful information to complement your understanding of the function in this TODO, it is recommended that you read it if you want a deeper understanding of the system.<br>
@@ -582,9 +558,7 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 }
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
+Solution:
 	
 ```cpp
 //TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
@@ -617,7 +591,6 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 }
 
 ```
-</details>
 
 ## TODO 4 - Updating FoW Entites Position
 This TODO is meant to make you think about when to update the FoWEntity position and the implications that it has.
@@ -658,11 +631,8 @@ void Player::HandleInput(float dt)
 
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
-<br>
-	
+Solution:
+
 ```cpp
 void Player::HandleInput(float dt)
 {
@@ -695,8 +665,6 @@ void Player::HandleInput(float dt)
 
 }
 ```
-<br>
-</details>
 
 ## TODO 5 - When to draw?
 This TODO will make you complete a function that is vital to let entities know when are in visible areas and when they are not, and draw accordingly.<br>
@@ -722,10 +690,7 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 }
 ```
 
-<br>
-<details>
-  <summary>Show Solution</summary>
-	<br>
+Solution:
 	
 ```cpp
 //TODO 5: Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
@@ -751,9 +716,6 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 	return ret;
 }
 ```
-
-<br>
-</details>
 
 ## Homework
 Well done! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.<br>
