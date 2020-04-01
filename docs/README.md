@@ -276,6 +276,7 @@ private:
 };
 ```
 -The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile
+
 ```cpp
 //this struct holds the information of fog and shroud for every tile
 struct FoWDataStruct
@@ -287,7 +288,7 @@ struct FoWDataStruct
 
 class FoWManager :public j1Module
 {
-public:
+	public:
 	FoWManager();
 	~FoWManager();
 
@@ -317,7 +318,7 @@ public:
 	//Returns true if the tile is visible (there's no FOG in it) otherwise returns false
 	bool CheckTileVisibility(iPoint mapPos)const;
 
-public:
+	public:
 	//A number of precomputed circle masks ranging between a radius of 2 to a radius of 5
 	unsigned short circleMasks[4][fow_MAX_CIRCLE_LENGTH * fow_MAX_CIRCLE_LENGTH] =
 	{
@@ -364,7 +365,7 @@ public:
 	};
 
 
-private:
+	private:
 	//This is where the FoWEntites are stored
 	std::vector<FoWEntity*> fowEntities;
 	//This is where we store our FoW information
@@ -382,6 +383,7 @@ private:
 	bool debugMode = false;
 	bool foWMapNeedsRefresh = false;
 };
+
 ```
 
 Each entity in the entity system that we want to provide or interact with visibility contains a pointer to a FoWEntity and we have to update the position of the FoWEntity every time we want to move the entity containing it.
