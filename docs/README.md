@@ -102,7 +102,30 @@ if we want fog & shroud instead of only shroud we can keep the information of wh
 If you want more information about this aproach you can check [THIS](https://stackoverflow.com/questions/13654753/sdl-drawing-negative-circles-fog-of-war=) link.
 
 ## Tile Grid Based with blur
+When Riot wanted to update League of Legends' summoner's rift they faced an unexpected problem: the old fog of war method that they where using was outdated and didn't work properly with the new map. They had to remake the whole system.<br>
+They started by creating a 128x128 grid covering the map consisting on a flag that told the system if the fog in that spot was on/off. They tried to perform gaussian blur over the grid before rendering it but it didn't hide the jagged edges. They then tried to upscale the data from 128x128 to 512x512 where every pixel bacame a 4x4 block with some antialising to get rid of the jagged edges. Making thus a total of 16 unique possible patterns that conformed the new data map. 
+
+//Lol patterns
+
+They finally got rid of the jagged edges with this clever technique and could perform the gaussian blur safely. With only a 128x128 map of binary states they got a super smooth fog of war that is still being used today.<br>
+Here we can see the difference between the old jagged method and the new blurred one:
+
+//lol before
+//lol after
+
+You can check an article explaining this implementation in depth [HERE](https://technology.riotgames.com/news/story-fog-and-war).
+
 ## Raycasting (2D)
+Raycasting is a completely different aproach than the ones we have seen so far and the look and feel of a game with raycasting is completely different from one with tilebased FoW or mask FoW as it is a more realistic aproach.
+This technique consists of throwing rays in all directions around the player to see where they intersect with objects and draw walls there.
+
+//raycasting image
+
+But what if we cast rays only at angles where we know walls begin or end? The triangles produced by these rays are the visible areas and we do not have to cast that many rays.
+
+//raycasting triangles
+
+[THIS]https://www.redblobgames.com/articles/visibility/ article talks about 2D visibility more in-depth and explains a more efficient approach to the problem combining ray casting and wall intersection into a single algorithm.
 
 
 # Selected Approach
