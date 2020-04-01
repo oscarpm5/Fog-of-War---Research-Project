@@ -53,6 +53,10 @@ And here is an example of what a chunky FoW system looks like in a modern game w
 
 Smooth FoW is a little bit harder to implement than the chunky one but it provides far better visuar results in 2D games nevertheless. There are many ways to get a cool looking smooth FoW ranging from methods like Bitmap Masking, blurring a FoW texture or using algorithms like the neighbour aware tile selection method and the marching squares to print only the fogged area into a texture. Some of those approaches will be covered more in depth below.
 
+Here is an example of a game that uses smooth FoW and also fog & shroud: Age of Empires.
+
+//Age of Empires Smooth FoW
+
 
 # Different Approaches
 Now that we understand what types of FoW exist, lets take a look on how do they work.
