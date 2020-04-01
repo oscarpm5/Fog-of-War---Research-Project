@@ -398,7 +398,7 @@ Each entity in the entity system that we want to provide or interact with visibi
 - [Creating FoW in Games](https://startupfreakgame.com/2017/02/12/creating-fog-of-war-in-games/)
 - [2D Visibility - Raycasting](https://www.redblobgames.com/articles/visibility/)
 - [Marching squares algorithm](https://en.wikipedia.org/wiki/Marching_squares)
-- [Neighbour aware Tile Selection]()https://web.archive.org/web/20170608082007/http://www.saltgames.com/article/awareTiles/
+- [Neighbour aware Tile Selection](https://web.archive.org/web/20170608082007/http://www.saltgames.com/article/awareTiles/)
 - [What are Bitshift operators?](https://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work)
 - [Compound Bitwise operators](https://rambutan.readthedocs.io/projects/librambutan/en/master/lang/cpp/compoundbitwise.html)
 - [Bitwise operators in C/C++](https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/)
@@ -411,7 +411,8 @@ We are now ready to complete the TODO's!
 The TODO's are small exercises guided by code comments that are intended to walk you through all the process explained above, from creating a FoW Map and its entities to applying a Mask to help you understand the process and systems involved. Once you finish all the TODO's you will have a fully functional FoW.
 
 ## TODO 1 - Creating the FoW Map
-In this TODO you will learn how to create the basic data map needed for the system to work prpoerly. This map will store all the data related with FoW:<br>
+In this TODO you will learn how to create the basic data map needed for the system to work prpoerly. This map will store all the data related with FoW:
+<br>
 
 ```cpp
 void FoWManager::CreateFoWMap(uint w, uint h)
@@ -429,6 +430,7 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 	MapNeedsUpdate();
 }
 ```
+
 <br>
 <details>
   <summary>Show Solution</summary>
