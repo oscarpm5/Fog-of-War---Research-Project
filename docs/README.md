@@ -17,13 +17,28 @@ In videogames this expression is used to describe unexplored or hidden terrain o
 This image shows the videogame "Empire" by Walter Bright, released in 1977, being the first videogame that used FoW.
 
 ## Types
-### Chunky
-### Smooth
+With only two basic parameters we can define almost every videogame's FoW:
+
+### Fog / Fog & Shroud
+This first parameter depends on the kind of videogame we are willing to make and its intended features. Basically, games with FoW can be divided into two: the ones with only fog and the ones with fog and shroud.
+The ones with only fog are the ones that do not care so much about exploring, they instead focus on hidding information. As a player you see all the terrain but you cannot see the enemies or buidings, or at least not in real time but a representation of their state the last tile you saw that area.
+
+An example of a game that consist ony of visible areas and foggy areas is League of Legends. It comes up with two interesting additions to the system: bushes that are always fogged from the outside and wards that clear vision for you.
+
+//League of Legends image Here
+
+
+
+### Chunky / Smooth
+The second parameter will let us define how our FoW looks and feels.
+- **Chunky Fog:** The Chunky fog is the easiest to implement. It consists 
+
+
 
 
 # Different Approaches
 ## Tile Grid Based
-## Mask Based
+## Texture mask Based
 ## Raycasting (2D)
 
 
