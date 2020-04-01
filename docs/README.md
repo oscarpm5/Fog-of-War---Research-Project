@@ -1,38 +1,57 @@
-## Welcome to GitHub Pages
+# Introduction
+## Terminology
+## Types
+### Chunky
+### Smooth
+
+
+# Different Approaches
+## Tile Grid Based
+## Mask Based
+## Raycasting (2D)
+
+
+# Selected Approach
+
+
+# More Documentation
+
+
+# TODO's
+## TODO 1
+
 <details>
   <summary>Show Solution</summary>
-You can use the [editor on GitHub](https://github.com/oscarpm5/Fog-of-War---Research-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+
 </details>
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+## TODO 2
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+<details>
+  <summary>Show Solution</summary>
 
-```markdown
-Syntax highlighted code block
+</details>
 
-# Header 1
-## Header 2
-### Header 3
+## TODO 3
 
-- Bulleted
-- List
+<details>
+  <summary>Show Solution</summary>
 
-1. Numbered
-2. List
+</details>
 
-**Bold** and _Italic_ and `Code` text
+## TODO 4
 
-[Link](url) and ![Image](src)
-```
+<details>
+  <summary>Show Solution</summary>
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+</details>
 
-### Jekyll Themes
+## TODO 5
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/oscarpm5/Fog-of-War---Research-Project/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+<details>
+  <summary>Show Solution</summary>
 
-### Support or Contact
+</details>
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Optional Homework
+## Possible Improvements
