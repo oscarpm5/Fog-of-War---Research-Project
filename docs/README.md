@@ -386,8 +386,18 @@ private:
 
 Each entity in the entity system that we want to provide or interact with visibility contains a pointer to a FoWEntity and we have to update the position of the FoWEntity every time we want to move the entity containing it.
 
-# More Documentation
+# More Documentation & References
 
+- [Fog of War in league of legends](https://technology.riotgames.com/news/story-fog-and-war)
+- [Implementing FoW for RTS part 1](https://blog.gemserk.com/2018/08/27/implementing-fog-of-war-for-rts-games-in-unity-1-2/) and [part 2](https://blog.gemserk.com/2018/11/20/implementing-fog-of-war-for-rts-games-in-unity-2-2/)
+- One of the bests: [How to implement FoW part 1](http://bobkoon.com/how-to-implement-a-fog-of-war-part-1-chunky/) and [part 2](http://bobkoon.com/how-to-implement-a-fog-of-war-part-2-smooth/) 
+- [Creating FoW in Games](https://startupfreakgame.com/2017/02/12/creating-fog-of-war-in-games/)
+- [2D Visibility - Raycasting](https://www.redblobgames.com/articles/visibility/)
+- [Marching squares algorithm](https://en.wikipedia.org/wiki/Marching_squares)
+- [Neighbour aware Tile Selection]()https://web.archive.org/web/20170608082007/http://www.saltgames.com/article/awareTiles/
+- [What are Bitshift operators?](https://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work)
+- [Compound Bitwise operators](https://rambutan.readthedocs.io/projects/librambutan/en/master/lang/cpp/compoundbitwise.html)
+- [Bitwise operators in C/C++](https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/)
 
 # TODO's
 We are now ready to complete the TODO's!
