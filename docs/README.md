@@ -390,40 +390,332 @@ Each entity in the entity system that we want to provide or interact with visibi
 
 
 # TODO's
-## TODO 1
+We are now ready to complete the TODO's!
+The TODO's are small exercises guided by code comments that are intended to walk you through all the process explained above, from creating a FoW Map and its entities to applying a Mask to help you understand the process and systems involved. Once you finish all the TODO's you will have a fully functional FoW.
+
+## TODO 1 - Creating the FoW Map
+In this TODO you will learn how to create the basic data map needed for the system to work prpoerly. This map will store all the data related with FoW:
+
+```cpp
+void FoWManager::CreateFoWMap(uint w, uint h)
+{
+	width = w;
+	height = h;
+
+	//TODO 1: Complete this function to create a FoWMap. EASY!
+	//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
+	//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map should be stored in the variable "fowMap"
+	//Don't forget to reset it once is creeated, hint: there's another function for that :)
+	
+	//Code here
+
+	MapNeedsUpdate();
+}
+```
+
+<details>
+  <summary>Show Solution</summary>
+	
+```cpp
+void FoWManager::CreateFoWMap(uint w, uint h)
+{
+	width = w;
+	height = h;
+
+	//TODO 1: Complete this function to create a FoWMap. EASY!
+	//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
+	//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map should 		be stored in the variable "fowMap"
+	//Don't forget to reset it once is creeated, hint: there's another function for that :)
+	DeleteFoWMap();
+	fowMap = new FoWDataStruct[width * height];
+	ResetFoWMap();
+
+	MapNeedsUpdate();
+}
+```
+
+</details>
+
+## TODO 2 - Creating FoW Entites
+In this series of TODO's you will learn how the map interacts with the entities in the world. This first TODO shows how FoW Entites (abstractions of normal entities for the FoW manager to work with) work:
+
+```cpp
+//TODO 2: Complete this function: given a position and a flag, create a new entity and return a pointer to it (or nullptr if something has gone wrong)
+//Note that the FoWManager needs to know about the entity we are creating, try to find where the FoWManager module stores all the FoWEntities and add it there
+FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
+{
+	//Code Here
+	return nullptr;
+}
+```
+
+<details>
+  <summary>Show Solution</summary>
+	
+```cpp
+//TODO 2: Complete this function: given a position and a flag, create a new entity and return a pointer to it (or nullptr if something has gone wrong)
+//Note that the FoWManager needs to know about the entity we are creating, try to find where the FoWManager module stores all the FoWEntities and add it there
+FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
+{
+	FoWEntity* entity = nullptr;
+
+	entity = new FoWEntity(pos,providesVisibility);
+
+	if (entity != nullptr)
+	{
+		fowEntities.push_back(entity);
+	}
+
+	return entity;
+}
+```
+
+</details>
+
+TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
+### TODO 2.1 - TODO 2.2
+```cpp
+//TODO 2.1: The player will need to have a FoWEntity assigned to him (the variable that you need is called "visionEntity")
+	//Note that the player provides visibility to allies!
+	//Extra: you can also set its vision radius once created calling the function SetNewVisionRadius(), you can choose between a radius of 2,3,4 and 5
+
+//Code here
+```
 
 <details>
   <summary>Show Solution</summary>
 
+```cpp
+//TODO 2.1 / TODO 2.2: The player will need to have a FoWEntity assigned to him (the variable that you need is called "visionEntity")
+	//Note that the player provides visibility to allies!
+	//Extra: you can also set its vision radius once created calling the function SetNewVisionRadius(), you can choose between a radius of 2,3,4 and 5
+	visionEntity = App->fowManager->CreateFoWEntity(pos, true);
+	visionEntity->SetNewVisionRadius(4);
+```
+
 </details>
 
-## TODO 2
+### TODO 2.3
+```cpp
+//TODO 2.3: Same as before! BUT, this unit is an enemy, it does not provide visibility! As a consequence, it doesn't matter if you change its radius of vision as it sees nothing :)
+
+//Code here
+```
 
 <details>
   <summary>Show Solution</summary>
 
+```cpp
+//TODO 2.3: Same as before! BUT, this unit is an enemy, it does not provide visibility! As a consequence, it doesn't matter if you change its radius of vision as it sees nothing :)
+	visionEntity = App->fowManager->CreateFoWEntity(pos, false);
+```
+
 </details>
 
-## TODO 3
+## TODO 3 - Applying the BitMask
+The real deal! This function is the most important one in the code, and you need to understand it very well. This is the function that changes the data in the FoW map based on a bit Mask. Half of the function has already been done and the other half is there for you to complete. There is also a TODO 3.1 but you have to do nothing there, it has been created only to point you to some useful information to complement your understanding of the function in this TODO, it is recommended that you read it if you want a deeper understanding of the system.
+
+```cpp
+//TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
+void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
+{
+
+	//We first take the correct precomputed mask and store it in the precMask variable (it is recommended to see what they are made of. You can find the masks at the FoWManager.h module)
+	//Note that it is an array
+	unsigned short* precMask = &App->fowManager->circleMasks[boundingBoxRadius - fow_MIN_CIRCLE_RADIUS][0];
+
+	//You have to complete the code inside this for
+	for (int i = 0; i < tilesAffected.size(); i++)
+	{
+		//You have to request the fog & shroud values of each affected tile. Hint:(You can take both with a single function 			call)
+
+		//Code Here
+
+		//And (bitwise AND) them with the mask if the tile FoW values are not nullptr
+		//To bitwise AND values you just simply do this: value1 &= value2 
+		//the operation result will be stored in the variable on the left side. 
+		//In this case you want to modify the fog and shroud values that you have requested above
+
+		
+		//Code Here
+
+
+		precMask++;
+	}
+
+}
+```
 
 <details>
   <summary>Show Solution</summary>
 
+```cpp
+//TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
+void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
+{
+
+	//We first take the correct precomputed mask and store it in the precMask variable (it is recommended to see what they are made 	of. You can find the masks at the FoWManager.h module)
+	//Note that it is an array
+	unsigned short* precMask = &App->fowManager->circleMasks[boundingBoxRadius - fow_MIN_CIRCLE_RADIUS][0];
+
+	//You have to complete the code inside this for
+	for (int i = 0; i < tilesAffected.size(); i++)
+	{
+		//You have to request the fog & shroud values of each affected tile. Hint:(You can take both with a single function 			call)
+		FoWDataStruct* tileValue = App->fowManager->GetFoWTileState(tilesAffected[i]);
+
+		//And (bitwise AND) them with the mask if the tile FoW values are not nullptr
+		//To bitwise AND values you just simply do this: value1 &= value2 
+		//the operation result will be stored in the variable on the left side. 
+		//In this case you want to modify the fog and shroud values that you have requested above
+
+		if (tileValue != nullptr)
+		{
+			tileValue->tileShroudBits &= *precMask;
+			tileValue->tileFogBits &= *precMask;
+		}
+		precMask++;
+	}
+
+}
+
+```
+
+
 </details>
 
-## TODO 4
+## TODO 4 - Updating FoW Entites Position
+This TODO is meant to make you think about when to update the FoWEntity position and the implications that it has.
+In TODO 4.1 you have to do the same as TODO 4 but instead of in the player entity you have to do it in the friendly entity.
+```cpp
 
+void Player::HandleInput(float dt)
+{
+	int speed = 200;
+
+	//Code here
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		pos.y -= floor(speed*dt);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		pos.y += floor(speed*dt);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		pos.x -= floor(speed*dt);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		pos.x += floor(speed*dt);
+	}
+
+	//TODO 4: don't forget to set the new FoWEntity position when needed!
+	//Note that player HandleInput() function is called every frame, you do not need to update the FoWEntity position each frame, 		only when position changes
+	
+	//Code here
+
+}
+
+
+```
 <details>
   <summary>Show Solution</summary>
 
+```cpp
+void Player::HandleInput(float dt)
+{
+	int speed = 200;
+
+	iPoint auxPos = pos;
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		pos.y -= floor(speed*dt);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		pos.y += floor(speed*dt);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		pos.x -= floor(speed*dt);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		pos.x += floor(speed*dt);
+	}
+
+	//TODO 4: don't forget to set the new FoWEntity position when needed!
+	//Note that player HandleInput() function is called every frame, you do not need to update the FoWEntity position each frame, only when position changes
+
+	if(auxPos!=pos)
+	visionEntity->SetNewPosition(pos);
+
+}
+```
 </details>
 
-## TODO 5
+## TODO 5 - When to draw?
+This TODO will make you complete a function that is vital to let entities know when are in visible areas and when they are not, and draw accordingly.
+```cpp
+//TODO 5: Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
+//This function will be used to check if we need to draw a certain entity
+bool FoWManager::CheckTileVisibility(iPoint mapPos)const
+{
+	bool ret = false;
+	//First check if the entity is inside the map
+	//& get the tile fog information,its state, to check if is visible. 
+	//Note that the function that you need does both things for you, it is recommended to check and understand what the needed 		function does
+
+	//Code here
+	
+		//Entity will only be visible in visible areas (no fog nor shroud)
+		//Think about what happens with the smooth borders, are the considered visble or fogged?
+		//Also, do you need to check both the fog and shroud states?
+	//Code here
+
+	return ret;
+}
+```
 
 <details>
   <summary>Show Solution</summary>
+	
+```cpp
+//TODO 5: Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
+//This function will be used to check if we need to draw a certain entity
+bool FoWManager::CheckTileVisibility(iPoint mapPos)const
+{
+	bool ret = false;
+	//First check if the entity is inside the map
+	//& get the tile fog information,its state, to check if is visible. 
+	//Note that the function that you need does both things for you, it is recommended to check and understand what the needed 		function does
+
+	FoWDataStruct* tileState = GetFoWTileState(mapPos);
+
+	if (tileState != nullptr)
+	{
+		//Entity will only be visible in visible areas (no fog nor shroud)
+		//Think about what happens with the smooth borders, are the considered visble or fogged?
+		//Also, do you need to check both the fog and shroud states?
+		if (tileState->tileFogBits != fow_ALL)
+			ret = true;
+	}
+
+	return ret;
+}
+```
 
 </details>
 
-## Optional Homework
+## Homework
+Well done! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.
+First check the Fow Manager module's function DrawFoWMap() and make sure you understand how it draws the FoW tiles. Then try to create a precomputed shape mask by yourself: You will only need to go to the FoW Manager header file and search for a variable named "circle masks"; you can then create an array of defines just as the ones that are already set there for you. Note that every time that you create a new mask you have to increment the number [4] next to the variable name. Feel free to experiment with new shapes!
+
 ## Possible Improvements
+The most imporant one is timing, think about when you need to update the FoW map, it doesn't need to be every frame, neither every time a unit is moved (as it is set in my code). You can combine the unit move check with a timer to perform the check every now and then. Between 0.25 and 0.5 sec will be fine in most cases.
+
+A nice improvement would be to make the shape masks procedurally generated, at least the circle ones. An algorithm could be created to generate a mask given a radius and detecting which tiles would be corners joints and straight lines. You can use both the the [Neighbourh aware Tile selection](https://web.archive.org/web/20170608082007/http://www.saltgames.com/article/awareTiles/) algorithm and this [circle drawing](https://www.redblobgames.com/grids/circle-drawing/) algorithm or the (Bresenham circle drawing algorithm)[https://www.geeksforgeeks.org/bresenhams-circle-drawing-algorithm/] instead.
