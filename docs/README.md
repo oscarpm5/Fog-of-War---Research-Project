@@ -411,7 +411,7 @@ We are now ready to complete the TODO's!
 The TODO's are small exercises guided by code comments that are intended to walk you through all the process explained above, from creating a FoW Map and its entities to applying a Mask to help you understand the process and systems involved. Once you finish all the TODO's you will have a fully functional FoW.
 
 ## TODO 1 - Creating the FoW Map
-In this TODO you will learn how to create the basic data map needed for the system to work prpoerly. This map will store all the data related with FoW:
+In this TODO you will learn how to create the basic data map needed for the system to work prpoerly. This map will store all the data related with FoW:<br>
 
 ```cpp
 void FoWManager::CreateFoWMap(uint w, uint h)
@@ -429,10 +429,11 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 	MapNeedsUpdate();
 }
 ```
-
+<br>
 <details>
   <summary>Show Solution</summary>
-	
+<br>
+
 ```cpp
 void FoWManager::CreateFoWMap(uint w, uint h)
 {
@@ -451,10 +452,11 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 }
 ```
 
+<br>
 </details>
 
 ## TODO 2 - Creating FoW Entites
-In this series of TODO's you will learn how the map interacts with the entities in the world. This first TODO shows how FoW Entites (abstractions of normal entities for the FoW manager to work with) work:
+In this series of TODO's you will learn how the map interacts with the entities in the world. This first TODO shows how FoW Entites (abstractions of normal entities for the FoW manager to work with) work:<br>
 
 ```cpp
 //TODO 2: Complete this function: given a position and a flag, create a new entity and return a pointer to it (or nullptr if something has gone wrong)
@@ -466,8 +468,10 @@ FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 }
 ```
 
+<br>
 <details>
   <summary>Show Solution</summary>
+	<br>
 	
 ```cpp
 //TODO 2: Complete this function: given a position and a flag, create a new entity and return a pointer to it (or nullptr if something has gone wrong)
@@ -487,10 +491,12 @@ FoWEntity* FoWManager::CreateFoWEntity(iPoint pos, bool providesVisibility)
 }
 ```
 
+<br>
 </details>
 
 TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 ### TODO 2.1 - TODO 2.2
+
 ```cpp
 //TODO 2.1: The player will need to have a FoWEntity assigned to him (the variable that you need is called "visionEntity")
 	//Note that the player provides visibility to allies!
@@ -499,9 +505,11 @@ TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 //Code here
 ```
 
+<br>
 <details>
   <summary>Show Solution</summary>
-
+<br>
+	
 ```cpp
 //TODO 2.1 / TODO 2.2: The player will need to have a FoWEntity assigned to him (the variable that you need is called "visionEntity")
 	//Note that the player provides visibility to allies!
@@ -510,27 +518,33 @@ TODO's 2.1-2.3 show how to link FoW Entites to normal entities:
 	visionEntity->SetNewVisionRadius(4);
 ```
 
+<br>
 </details>
 
 ### TODO 2.3
+
 ```cpp
 //TODO 2.3: Same as before! BUT, this unit is an enemy, it does not provide visibility! As a consequence, it doesn't matter if you change its radius of vision as it sees nothing :)
 
 //Code here
 ```
 
+<br>
 <details>
   <summary>Show Solution</summary>
-
+<br>
+	
 ```cpp
 //TODO 2.3: Same as before! BUT, this unit is an enemy, it does not provide visibility! As a consequence, it doesn't matter if you change its radius of vision as it sees nothing :)
 	visionEntity = App->fowManager->CreateFoWEntity(pos, false);
 ```
 
+<br>
 </details>
 
 ## TODO 3 - Applying the BitMask
-The real deal! This function is the most important one in the code, and you need to understand it very well. This is the function that changes the data in the FoW map based on a bit Mask. Half of the function has already been done and the other half is there for you to complete. There is also a TODO 3.1 but you have to do nothing there, it has been created only to point you to some useful information to complement your understanding of the function in this TODO, it is recommended that you read it if you want a deeper understanding of the system.
+The real deal! This function is the most important one in the code, and you need to understand it very well. This is the function that changes the data in the FoW map based on a bit Mask. Half of the function has already been done and the other half is there for you to complete. There is also a TODO 3.1 but you have to do nothing there, it has been created only to point you to some useful information to complement your understanding of the function in this TODO, it is recommended that you read it if you want a deeper understanding of the system.<br>
+
 
 ```cpp
 //TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
@@ -563,9 +577,11 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 }
 ```
 
+<br>
 <details>
   <summary>Show Solution</summary>
-
+<br>
+	
 ```cpp
 //TODO 3: Comprehend and complete this function: (this is the function that does the magic for us)
 void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
@@ -598,12 +614,13 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 
 ```
 
-
+<br>
 </details>
 
 ## TODO 4 - Updating FoW Entites Position
 This TODO is meant to make you think about when to update the FoWEntity position and the implications that it has.
-In TODO 4.1 you have to do the same as TODO 4 but instead of in the player entity you have to do it in the friendly entity.
+In TODO 4.1 you have to do the same as TODO 4 but instead of in the player entity you have to do it in the friendly entity.<br>
+
 ```cpp
 
 void Player::HandleInput(float dt)
@@ -638,9 +655,12 @@ void Player::HandleInput(float dt)
 
 
 ```
+
+<br>
 <details>
   <summary>Show Solution</summary>
-
+<br>
+	
 ```cpp
 void Player::HandleInput(float dt)
 {
@@ -673,10 +693,12 @@ void Player::HandleInput(float dt)
 
 }
 ```
+<br>
 </details>
 
 ## TODO 5 - When to draw?
-This TODO will make you complete a function that is vital to let entities know when are in visible areas and when they are not, and draw accordingly.
+This TODO will make you complete a function that is vital to let entities know when are in visible areas and when they are not, and draw accordingly.<br>
+
 ```cpp
 //TODO 5: Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
 //This function will be used to check if we need to draw a certain entity
@@ -698,8 +720,10 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 }
 ```
 
+<br>
 <details>
   <summary>Show Solution</summary>
+	<br>
 	
 ```cpp
 //TODO 5: Complete the following function: it shoud return the tile visibility (true if visible, otherwise false)
@@ -726,6 +750,7 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 }
 ```
 
+<br>
 </details>
 
 ## Homework
