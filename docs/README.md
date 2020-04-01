@@ -27,7 +27,16 @@ An example of a game that consist ony of visible areas and foggy areas is League
 
 //League of Legends image Here
 
+The ones with fog and shroud have two types of fog instead of one, where the fog consist of areas that have been discovered but are not visible at the moment and thus the things seen in those areas are the ones players saw last time they were in there and the shroud consists of unexplored territory, usually represented with a black texture representing a void. Iron Marines is a great example of a game with this type of FoW:
 
+//Iron Marines FoW concept art
+//Iron Marines In-Game FoW
+
+There is also a 3rd type, not that common nowadays but it certainly was in the past: a mix between fog and fog & shroud. That is only shroud; where the player has full vision of the explored territories and knows nothing about unexplored areas, with a hard transition between full visible and pitch black. Dune 2 is a great example of it:
+
+//Dune 2 FoW
+We find the same type of fog in Warcraft: Orcs and Humans
+//Warcraft: Orcs and humans FoW
 
 ### Chunky / Smooth
 The second parameter will let us define how our FoW looks and feels.
