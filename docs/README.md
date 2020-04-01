@@ -107,6 +107,96 @@ So this grid will describe the amount of fog we have in each tile, with each sub
 
 You don't need to define all 512 entries though, just the ones you care about. For example, maybe you don't care if a grid has only bit 4 set so you have no need to display it and thus don't define it.
 
+If we have a grid of sub-pixels and we want to define the North-West corner for example it would look like this:
+
+//NW corner grid
+
+This translates into this number in binary:
+
+//Grid to Binary Translation
+
+Which translates into 0x5F in hex value that represents the number 95 in decimal. So we set the entry 95 in the translation table to be the id of a certain texture that represents the North-West corner fogged tile. I use a map to set the definitions I care about, with the bit value being the key and the texture ID being the value. My table looks like this:
+```cpp
+//Straight-forward cases
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_ALL, 0));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_NNN, 1));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_WWW, 2));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_EEE, 3));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_SSS, 4));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_CNW, 5));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_CSE, 6));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_CNE, 7));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_CSW, 8));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_JNE, 9));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_JSW, 10));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_JNW, 11));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(fow_JSE, 12));
+
+	//more complicated cases (combinations)
+	//diagonals
+	bitToTextureTable.insert(std::pair<unsigned short, int>(20, 9));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(80, 10));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(17, 11));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(272, 12));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(273, 13));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(84, 14));
+	//lines
+	bitToTextureTable.insert(std::pair<unsigned short, int>(23, 1));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(308, 3));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(89, 2));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(464, 4));
+	//joints
+	bitToTextureTable.insert(std::pair<unsigned short, int>(6, 9));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(36, 9));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(72, 10));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(192, 10));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(3, 11));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(9, 11));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(384, 12));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(288, 12));
+	//corners
+	bitToTextureTable.insert(std::pair<unsigned short, int>(4, 9));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(64, 10));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(1, 11));
+	bitToTextureTable.insert(std::pair<unsigned short, int>(256, 12));
+
+```
+Where the straightforward cases' bit values have already been define in here:
+```cpp
+#define FOW_BIT_NW  (1 << 0)//this is equal to 1* 2^0 
+#define FOW_BIT_N   (1 << 1)//this is equal to 1* 2^1
+#define FOW_BIT_NE  (1 << 2)//this is equal to 1* 2^2
+#define FOW_BIT_W   (1 << 3)//this is equal to 1* 2^3
+#define FOW_BIT_C   (1 << 4)//this is equal to 1* 2^4
+#define FOW_BIT_E   (1 << 5)//this is equal to 1* 2^5
+#define FOW_BIT_SW  (1 << 6)//this is equal to 1* 2^6
+#define FOW_BIT_S   (1 << 7)//this is equal to 1* 2^7
+#define FOW_BIT_SE  (1 << 8)//this is equal to 1* 2^8
+
+#define fow_NON         0
+#define fow_ALL         (FOW_BIT_NW | FOW_BIT_N | FOW_BIT_NE |FOW_BIT_W | FOW_BIT_C | FOW_BIT_E |FOW_BIT_SW | FOW_BIT_S | FOW_BIT_SE)
+
+//Straight lines
+#define fow_EEE         (FOW_BIT_SE | FOW_BIT_E | FOW_BIT_NE)
+#define fow_NNN         (FOW_BIT_NE | FOW_BIT_N | FOW_BIT_NW)
+#define fow_WWW         (FOW_BIT_NW | FOW_BIT_W | FOW_BIT_SW)
+#define fow_SSS         (FOW_BIT_SW | FOW_BIT_S | FOW_BIT_SE)
+
+//Corners
+#define fow_CNE         (FOW_BIT_E | FOW_BIT_NE | FOW_BIT_N |FOW_BIT_NW | FOW_BIT_C | FOW_BIT_SE)
+#define fow_CNW         (FOW_BIT_N | FOW_BIT_NW | FOW_BIT_W |FOW_BIT_SW | FOW_BIT_C | FOW_BIT_NE)
+#define fow_CSW         (FOW_BIT_W | FOW_BIT_SW | FOW_BIT_S |FOW_BIT_NW | FOW_BIT_C | FOW_BIT_SE)
+#define fow_CSE         (FOW_BIT_S | FOW_BIT_SE | FOW_BIT_E |FOW_BIT_NE | FOW_BIT_C | FOW_BIT_SW)
+
+//Inner Corners (joints)
+#define fow_JNE         (FOW_BIT_E | FOW_BIT_NE | FOW_BIT_N)
+#define fow_JNW         (FOW_BIT_N | FOW_BIT_NW | FOW_BIT_W)
+#define fow_JSW         (FOW_BIT_W | FOW_BIT_SW | FOW_BIT_S)
+#define fow_JSE         (FOW_BIT_S | FOW_BIT_SE | FOW_BIT_E)
+
+```
+
+
 # More Documentation
 
 
