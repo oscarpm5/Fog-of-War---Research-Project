@@ -77,9 +77,31 @@ Here is an example of a game that uses smooth FoW and also fog & shroud: Age of 
 
 
 # Different Approaches
-Now that we understand what types of FoW exist, lets take a look on how do they work.
-## Tile Grid Based
-## Texture mask Based
+Now that we understand what types of FoW exist, lats take a look at how different videogames implement them:
+## Texture mask based
+With this approach we use an image file to mask a surface.
+
+//zelda map clear image
+
+We first need a surface to cover the entire map covering each pixel 1:1 and draw it in front of our map to hide it.
+
+//zelda map covered image
+
+Then we need an image like this one, with the shape we want to substract taht follows the player at all times:
+
+//Hole punch mask image
+
+When the player moves, we iterate each pixel of the shape image and copy its alpha value to the surface.
+
+//zelda map hole punched
+
+if we want fog & shroud instead of only shroud we can keep the information of where we did mask for the last time and clamp the alpha to a certain value if it is below that treshold. If we do that right before masking out the shape around the player we end up with a two state fog: fog & shroud.
+
+//zelda map fog and shroud
+
+If you want more information about this aproach you can check [THIS](https://stackoverflow.com/questions/13654753/sdl-drawing-negative-circles-fog-of-war=) link.
+
+## Tile Grid Based with blur
 ## Raycasting (2D)
 
 
@@ -407,6 +429,7 @@ Each entity in the entity system that we want to provide or interact with visibi
 - [Fog of War videogame examples](https://tvtropes.org/pmwiki/pmwiki.php/Main/FogOfWar)
 - [Fog of War through textures](http://damienclassen.blogspot.com/2014/02/implementing-fog-of-war.html)
 - [Gaussian Blur](http://rastergrid.com/blog/2010/09/efficient-gaussian-blur-with-linear-sampling/)
+- [Drawing negative Circles](https://stackoverflow.com/questions/13654753/sdl-drawing-negative-circles-fog-of-war=)
 
 # TODO's
 We are now ready to complete the TODO's!
