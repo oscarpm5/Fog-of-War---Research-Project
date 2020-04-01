@@ -195,7 +195,49 @@ Where the straightforward cases' bit values have already been define in here:
 #define fow_JSE         (FOW_BIT_S | FOW_BIT_SE | FOW_BIT_E)
 
 ```
+The combinations that I don't care about just aren't defined in this map.
 
+So now that we have all of our tiles defined it is time to create the shape masks that will be used to mask out shapes from the fog. This is also when we take advantadge of the defines we have just set up to make it easy for programmers to create the masks. This is an example of a circle mask of radius 3:
+
+```cpp
+fow_ALL, fow_ALL, fow_CNW, fow_NNN, fow_CNE, fow_ALL, fow_ALL,
+fow_ALL, fow_CNW, fow_JNW, fow_NON, fow_JNE, fow_CNE, fow_ALL,
+fow_CNW, fow_JNW, fow_NON, fow_NON, fow_NON, fow_JNE, fow_CNE,
+fow_WWW, fow_NON, fow_NON, fow_NON, fow_NON, fow_NON, fow_EEE,
+fow_CSW, fow_JSW, fow_NON, fow_NON, fow_NON, fow_JSE, fow_CSE,
+fow_ALL, fow_CSW, fow_JSW, fow_NON, fow_JSE, fow_CSE, fow_ALL,
+fow_ALL, fow_ALL, fow_CSW, fow_SSS, fow_CSE, fow_ALL, fow_ALL,		
+```
+We will use precomputed masks for the sake of simplicity but you can create an algorithm that creates custom masks procedurally, too.
+
+Once we have the mask that we want we only have to apply it to our fog map to update its state. This is done by bitwise ANDing the mask array with the fog of map data that already exists. When bitwise ANDing we maintain the fog bits and only add new ones from the mask so the code can handle multiple masks applied on the same spot perfectly.
+
+So the next function applies the shape mask to an array that have the tiles which can be potentially affected bitwise ANDing every position in the mask array with its corresponding position in the fog data array:
+
+```cpp
+void ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
+{
+
+	//We first take the correct precomputed mask and store it in the precMask variable 
+	unsigned short* precMask = &App->fowManager->circleMasks[boundingBoxRadius - fow_MIN_CIRCLE_RADIUS][0];
+
+	
+	for (int i = 0; i < tilesAffected.size(); i++)
+	{
+		//We then request the fog & shroud values of each affected tile. 
+		FoWDataStruct* tileValue = App->fowManager->GetFoWTileState(tilesAffected[i]);
+
+		//And (bitwise AND) them with the mask
+		if (tileValue != nullptr)
+		{
+			tileValue->tileShroudBits &= *precMask;
+			tileValue->tileFogBits &= *precMask;
+		}
+		precMask++;
+	}
+
+}
+```
 
 # More Documentation
 
