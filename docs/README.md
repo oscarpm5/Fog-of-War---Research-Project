@@ -243,7 +243,8 @@ With this we have a functional FoW system and we just need to print it to the sc
 To draw the fog we simply traverse the fog map and use the bits in combination with the translation table to get the correct texture for each tile.
 ## Code Structure
 To make this project I have made two modules:
-- The first contains an abstraction of an entity that stores its position and the radius of vision of the entity. It also has a flag that determines if the entity can see and another that determines if the entity is visible or obscured by the fog.
+- The first contains an abstraction of an entity that stores its position and the radius of vision of the entity. It also has a flag that determines if the entity can see and another that determines if the entity is visible or obscured by the fog.<br>
+
 ```cpp
 class FoWEntity
 {
@@ -275,7 +276,8 @@ private:
 	uint boundingBoxRadius;
 };
 ```
--The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile
+
+-The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile<br>
 
 ```cpp
 //this struct holds the information of fog and shroud for every tile
@@ -385,7 +387,7 @@ class FoWManager :public j1Module
 };
 
 ```
-
+<br>
 Each entity in the entity system that we want to provide or interact with visibility contains a pointer to a FoWEntity and we have to update the position of the FoWEntity every time we want to move the entity containing it.
 
 # More Documentation & References
