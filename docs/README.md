@@ -40,12 +40,19 @@ We find the same type of fog in Warcraft: Orcs and Humans
 
 ### Chunky / Smooth
 The second parameter will let us define how our FoW looks and feels.
-- **Chunky Fog:** The Chunky fog is the easiest to implement. It consists 
 
+While chunky fog is the easiest to implement it is also the less common to go with these days. That is due to the hard edges in the shape of squares that it forms that are not pleasing to see at all for the players. This happens because this kind of fog is conformed by an array or grid of usually two or three states (defined by an enumerator or a bool in case it is only two states) that describe if that position in the grid has been explored and if it is visible or not. When it is not visible a black square is drawn over the map or the map isn't drawn at all. The fog layer is usually printed to the screen at half opacity.
 
+Here is an image of some testing done in Iron Marines so you can compare it with the look and feel that the two previous shown images of the same game have:
 
+//Iron Marines In-Game CHUNKY FoW
+
+And here is an example of what a chunky FoW system looks like in a modern game with 3D terrain:
+
+//Knights Merchant FoW Chunky
 
 # Different Approaches
+
 ## Tile Grid Based
 ## Texture mask Based
 ## Raycasting (2D)
