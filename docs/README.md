@@ -246,6 +246,7 @@ To make this project I have made two modules:
 - The first contains an abstraction of an entity that stores its position and the radius of vision of the entity. It also has a flag that determines if the entity can see and another that determines if the entity is visible or obscured by the fog.<br>
 
 ```cpp
+
 class FoWEntity
 {
 public:
@@ -275,6 +276,7 @@ private:
 	//Max radius from the entity at which tiles are affected (square to be checked)
 	uint boundingBoxRadius;
 };
+
 ```
 
 - The second module contains the fog of war map with all the tile data, has functions to manage it and stores the translation table and the precomputed masks. It also defines the struct for each fog of war tile<br>
@@ -436,23 +438,25 @@ void FoWManager::CreateFoWMap(uint w, uint h)
   <summary>Show Solution</summary>
 <br>
 
-```cpp
-void FoWManager::CreateFoWMap(uint w, uint h)
-{
-	width = w;
-	height = h;
+	```cpp
+	
+	void FoWManager::CreateFoWMap(uint w, uint h)
+	{
+		width = w;
+		height = h;
 
-	//TODO 1: Complete this function to create a FoWMap. EASY!
-	//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
-	//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map should 		be stored in the variable "fowMap"
-	//Don't forget to reset it once is creeated, hint: there's another function for that :)
-	DeleteFoWMap();
-	fowMap = new FoWDataStruct[width * height];
-	ResetFoWMap();
+		//TODO 1: Complete this function to create a FoWMap. EASY!
+		//If a map has already been created you will need to delete it first, hint: there's a function for that :) 
+		//Note that the map will be a 1 dimensional array and you might need the 2 variables above to set it up. The map 		should be stored in the variable "fowMap"
+		//Don't forget to reset it once is creeated, hint: there's another function for that :)
+		DeleteFoWMap();
+		fowMap = new FoWDataStruct[width * height];
+		ResetFoWMap();
 
-	MapNeedsUpdate();
-}
-```
+		MapNeedsUpdate();
+	}
+	
+	```
 
 <br>
 </details>
