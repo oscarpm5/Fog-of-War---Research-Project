@@ -10,7 +10,7 @@ In this document we will take a look at what is Fog ow War, the different aproac
 ## Terminology - What is Fog of War?
 Fog of war, FoW from now on, is a term used in armed conflicts that was first described in the book "The Fog of War" by Carl von Clausewitz. The expression was later used by generals during the 1st and the 2nd World War and refers to the uncertainty in situational awareness (that is the perception of environmental elements and events, the comprehension of their meaning, and the projection of their future status) experienced by participants in military operations.
 
-In videogames this expression is used to describe unexplored terrain or map areas. It is mostly used in strategy and roleplay videogames: the former uses it to hide information about what other players are doing and thus making the game more interesting by forcing the player to take risks, gather intel or predict what others might do. The latter uses FoW to tell the players that, although they might have discovered a certain area of the playable map, they still have much more to discover and thus encourage exploration.
+In videogames this expression is used to describe unexplored or hidden terrain or map areas. It is mostly used in strategy and roleplay videogames: the former uses it to hide information about what other players are doing and thus making the game more interesting by forcing the player to take risks, gather intel or predict what others might do. The latter uses FoW to tell the players that, although they might have discovered a certain area of the playable map, they still have much more to discover and thus encourage exploration.
 
 //Empire Image Here
 
