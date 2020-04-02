@@ -537,6 +537,13 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 }
 	
 ```
+This is how the project should look like when you finish this TODO (The grid of 0's that you see is a debug tool that you can access by pressing F1 and shouws the current FoW map with debug textures):
+
+<p align="center">
+<img src="https://media.giphy.com/media/J3MKoJKvAgauBqYKVW/giphy.gif" width="700">
+</p>
+
+
 
 ## TODO 2 - Creating FoW Entites
 In this series of TODO's you will learn how the map interacts with the entities in the world. This first TODO shows how FoW Entites (abstractions of normal entities for the FoW manager to work with) work:<br>
@@ -606,6 +613,14 @@ Solution:
 //TODO 2.3: Same as before! BUT, this unit is an enemy, it does not provide visibility! As a consequence, it doesn't matter if you change its radius of vision as it sees nothing :)
 	visionEntity = App->fowManager->CreateFoWEntity(pos, false);
 ```
+
+Once you finish this series of TODO's, the project should look like this:
+
+<p align="center">
+<img src="https://media.giphy.com/media/J2VLmcBeEiLI2jVInQ/giphy.gif" width="700">
+</p>
+
+The entites should not be visible unless you enter debug mode with F1
 
 ## TODO 3 - Applying the BitMask
 The real deal! This function is the most important one in the code, and you need to understand it very well. This is the function that changes the data in the FoW map based on a bit Mask. Half of the function has already been done and the other half is there for you to complete. There is also a TODO 3.1 but you have to do nothing there, it has been created only to point you to some useful information to complement your understanding of the function in this TODO, it is recommended that you read it if you want a deeper understanding of the system.<br>
