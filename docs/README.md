@@ -690,6 +690,14 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 
 ```
 
+When you are done with this TODO you should see this when you execute the project:
+
+<p align="center">
+<img src="https://media.giphy.com/media/cLTalUXKyU0PGgcXvW/giphy.gif" width="700">
+</p>
+
+Altough the Mask has been applied note that it doesn't move with the entites, and also the entites are not visible yet (unless you are in debug mode).
+
 ## TODO 4 - Updating FoW Entites Position
 This TODO is meant to make you think about when to update the FoWEntity position and the implications that it has.
 In TODO 4.1 you have to do the same as TODO 4 but instead of in the player entity you have to do it in the friendly entity.<br>
@@ -763,6 +771,12 @@ void Player::HandleInput(float dt)
 
 }
 ```
+When you finish this series of TODO's you should end up with a result like this:
+<p align="center">
+<img src="https://media.giphy.com/media/Ph0wD6kyY3Zn5aSTuo/giphy.gif" width="700">
+</p>
+
+The mask now moves with the entites but the entites are still not visible. You can also spawn more friendy entites whit left click.
 
 ## TODO 5 - When to draw?
 This TODO will make you complete a function that is vital to let entities know when are in visible areas and when they are not, and draw accordingly.<br>
@@ -814,6 +828,13 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 	return ret;
 }
 ```
+
+When you finish this series of TODO's you should end up with a result like this:
+<p align="center">
+<img src="https://media.giphy.com/media/f4UARROy2bqOj6pTQ5/giphy.gif">
+</p>
+
+And with this, you are done!
 
 ## Homework
 Well done! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.<br><br>
