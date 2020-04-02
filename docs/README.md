@@ -151,7 +151,10 @@ But what if we cast rays only at angles where we know walls begin or end? The tr
 
 
 # Selected Approach
-Our approach will consist of bitmasking sub-pixels. Altough by the name it may seem hard to comprehend I assure you it is easier to understand than you think. 
+Our approach will consist of bitmasking sub-pixels. Altough by the name it may seem hard to comprehend I assure you it is easier to understand than you think. This is the result that we will end up with once we finish:
+
+<p align="center">
+<img src="https://media.giphy.com/media/f5dCaMsbqBjk1vx5gN/giphy.gif" width="700">
 
 To make the system work we first need a FoW map, an array representing every tile in our 2D map. We will use the fog & shroud type of fog explained above, so we will need two "layers" for the map, one for the shroud and another for the fog. The array we will use consists of a struct with two numbers, one for each layer. 
 This is how it looks in code: 
@@ -316,7 +319,9 @@ void ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 ```
 
 With this we have a functional FoW system and we just need to print it to the screen to visualize the data.
-To draw the fog we simply traverse the fog map and use the bits in combination with the translation table to get the correct texture for each tile.
+To draw the fog we simply traverse the fog map and use the bits in combination with the translation table to get the correct texture for each tile. If you want More information about this aproach I recommend you to se both of these articles: [Implementing Chunky FoW](http://bobkoon.com/how-to-implement-a-fog-of-war-part-1-chunky/) & [Implementing Smooth FoW](http://bobkoon.com/how-to-implement-a-fog-of-war-part-2-smooth/).
+Also if you don't know how bitwise operators work check [THIS](https://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work) thread and [THIS](https://rambutan.readthedocs.io/projects/librambutan/en/master/lang/cpp/compoundbitwise.html) article.
+
 ## Code Structure
 To make this project I have made two modules:
 - The first contains an abstraction of an entity that stores its position and the radius of vision of the entity. It also has a flag that determines if the entity can see and another that determines if the entity is visible or obscured by the fog.<br>
