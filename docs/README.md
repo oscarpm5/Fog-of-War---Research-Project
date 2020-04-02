@@ -474,6 +474,17 @@ class FoWManager :public j1Module
 <br>
 Each entity in the entity system that we want to provide or interact with visibility contains a pointer to a FoWEntity and we have to update the position of the FoWEntity every time we want to move the entity containing it.
 
+I implemented a few debug tools that will help us better understand what the code is doing:
+- F1: toggles fog textures between smooth fog and a deub tileset
+- F2: resets fog to its starting state
+- Left click: spawns a friendly unit at cursor position
+
+If you download the project solution keep in mind these controls:
+- WASD: move the player around
+- Arrows: move the friendly units around
+- Esc: closes the application
+
+
 # More Documentation & References
 
 - [Fog of War in league of legends](https://technology.riotgames.com/news/story-fog-and-war)
