@@ -831,7 +831,7 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 
 When you finish this series of TODO's you should end up with a result like this:
 <p align="center">
-<img src="https://media.giphy.com/media/f4UARROy2bqOj6pTQ5/giphy.gif">
+<img src="https://media.giphy.com/media/f4UARROy2bqOj6pTQ5/giphy.gif" width="700">
 </p>
 
 And with this, you are done!
