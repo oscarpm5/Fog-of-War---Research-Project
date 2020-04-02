@@ -27,7 +27,9 @@ The ones with only fog are the ones that do not care so much about exploring, th
 
 An example of a game that consist ony of visible areas and foggy areas is League of Legends. It comes up with two interesting additions to the system: bushes that are always fogged from the outside and wards that clear vision for you.
 
-//League of Legends image Here
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/league%20of%20legends%20image%201.jpg" width="700">
+</p>
 
 The ones with fog and shroud have two types of fog instead of one, where the fog consist of areas that have been discovered but are not visible at the moment and thus the things seen in those areas are the ones players saw last time they were in there and the shroud consists of unexplored territory, usually represented with a black texture representing a void. Iron Marines is a great example of a game with this type of FoW:
 
@@ -81,23 +83,33 @@ Now that we understand what types of FoW exist, lats take a look at how differen
 ## Texture mask based
 With this approach we use an image file to mask a surface.
 
-//zelda map clear image
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/zelda%20map%20clear.png" width="700">
+</p>
 
 We first need a surface to cover the entire map covering each pixel 1:1 and draw it in front of our map to hide it.
 
-//zelda map covered image
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/zelda%20map%20covered.png" width="700">
+</p>
 
 Then we need an image like this one, with the shape we want to substract taht follows the player at all times:
 
-//Hole punch mask image
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/hole%20punch%20mask.png" width="100">
+</p>
 
 When the player moves, we iterate each pixel of the shape image and copy its alpha value to the surface.
 
-//zelda map hole punched
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/zelda%20map%20hole%20punched.png" width="700">
+</p>
 
 if we want fog & shroud instead of only shroud we can keep the information of where we did mask for the last time and clamp the alpha to a certain value if it is below that treshold. If we do that right before masking out the shape around the player we end up with a two state fog: fog & shroud.
 
-//zelda map fog and shroud
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/zelda%20map%20fog%20and%20shroud.png" width="700">
+</p>
 
 If you want more information about this aproach you can check [THIS](https://stackoverflow.com/questions/13654753/sdl-drawing-negative-circles-fog-of-war=) link.
 
@@ -105,13 +117,19 @@ If you want more information about this aproach you can check [THIS](https://sta
 When Riot wanted to update League of Legends' summoner's rift they faced an unexpected problem: the old fog of war method that they where using was outdated and didn't work properly with the new map. They had to remake the whole system.<br>
 They started by creating a 128x128 grid covering the map consisting on a flag that told the system if the fog in that spot was on/off. They tried to perform gaussian blur over the grid before rendering it but it didn't hide the jagged edges. They then tried to upscale the data from 128x128 to 512x512 where every pixel bacame a 4x4 block with some antialising to get rid of the jagged edges. Making thus a total of 16 unique possible patterns that conformed the new data map. 
 
-//Lol patterns
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/lol%20patterns.png" width="350">
+</p>
 
 They finally got rid of the jagged edges with this clever technique and could perform the gaussian blur safely. With only a 128x128 map of binary states they got a super smooth fog of war that is still being used today.<br>
 Here we can see the difference between the old jagged method and the new blurred one:
 
-//lol before
-//lol after
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/lol%20before.jpg" width="700">
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/lol%20after.jpg" width="700">
+</p>
 
 You can check an article explaining this implementation in depth [HERE](https://technology.riotgames.com/news/story-fog-and-war).
 
@@ -119,13 +137,17 @@ You can check an article explaining this implementation in depth [HERE](https://
 Raycasting is a completely different aproach than the ones we have seen so far and the look and feel of a game with raycasting is completely different from one with tilebased FoW or mask FoW as it is a more realistic aproach.
 This technique consists of throwing rays in all directions around the player to see where they intersect with objects and draw walls there.
 
-//raycasting image
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/raycasting.png" width="350">
+</p>
 
 But what if we cast rays only at angles where we know walls begin or end? The triangles produced by these rays are the visible areas and we do not have to cast that many rays.
 
-//raycasting triangles
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/raycasting%20triangles.png" width="350">
+</p>
 
-[THIS]https://www.redblobgames.com/articles/visibility/ article talks about 2D visibility more in-depth and explains a more efficient approach to the problem combining ray casting and wall intersection into a single algorithm.
+[THIS](https://www.redblobgames.com/articles/visibility/) article talks about 2D visibility more in-depth and explains a more efficient approach to the problem combining ray casting and wall intersection into a single algorithm.
 
 
 # Selected Approach
@@ -144,21 +166,30 @@ struct FoWDataStruct
 ```
 Each variable on the struct will hold a number that refers to a certain combination of subpixels that can be translated into smooth FoW textures! So we will divide each map tile into a grid of 3x3 sub-pixels, this is 9 sub-pixels in total. You have to imagine it being like this:
 
-//Sub-Pixel Grid Image
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Sub-Pixel%20Grid.png" width="100">
+</p>
 
 So this grid will describe the amount of fog we have in each tile, with each sub-pixel being represented by a single bit. Note that you can choose the amount of bits you want, more bits means more possibilities but take into account that the higher the number of sub-pixels the bigger the table that translates bits into textures needs to be. For a 3x3 sub-pixel grid we will need 9 bits, that is the equivalent of a table with 512 entries.
 
-//Sub-Pixel to Texture image
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Sub-Pixel_to_texture.png" width="200">
+</p>
+
 
 You don't need to define all 512 entries though, just the ones you care about. For example, maybe you don't care if a grid has only bit 4 set so you have no need to display it and thus don't define it.
 
 If we have a grid of sub-pixels and we want to define the North-West corner for example it would look like this:
 
-//NW corner grid
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/NW%20corner%20grid.png" width="100">
+</p>
 
 This translates into this number in binary:
 
-//Grid to Binary Translation
+<p align="center">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/Images/Grid%20to%20binary%20translation.png" width="350">
+</p>
 
 Which translates into 0x5F in hex value that represents the number 95 in decimal. So we set the entry 95 in the translation table to be the id of a certain texture that represents the North-West corner fogged tile. I use a map to set the definitions I care about, with the bit value being the key and the texture ID being the value. My table looks like this:
 ```cpp
