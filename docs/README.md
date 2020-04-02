@@ -154,7 +154,7 @@ But what if we cast rays only at angles where we know walls begin or end? The tr
 Our approach will consist of bitmasking sub-pixels. Altough by the name it may seem hard to comprehend I assure you it is easier to understand than you think. This is the result that we will end up with once we finish:
 
 <p align="center">
-<img src="https://media.giphy.com/media/f5dCaMsbqBjk1vx5gN/giphy.gif" width="700">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/TODOs/Finished%20project.gif" width="700">
 </p>
 
 To make the system work we first need a FoW map, an array representing every tile in our 2D map. We will use the fog & shroud type of fog explained above, so we will need two "layers" for the map, one for the shroud and another for the fog. The array we will use consists of a struct with two numbers, one for each layer. 
@@ -540,7 +540,7 @@ void FoWManager::CreateFoWMap(uint w, uint h)
 This is how the project should look like when you finish this TODO (The grid of 0's that you see is a debug tool that you can access by pressing F1 and shouws the current FoW map with debug textures):
 
 <p align="center">
-<img src="https://media.giphy.com/media/J3MKoJKvAgauBqYKVW/giphy.gif" width="700">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/TODOs/TODO%201.gif" width="700">
 </p>
 
 
@@ -617,7 +617,7 @@ Solution:
 Once you finish this series of TODO's, the project should look like this:
 
 <p align="center">
-<img src="https://media.giphy.com/media/J2VLmcBeEiLI2jVInQ/giphy.gif" width="700">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/TODOs/TODO%202.gif" width="700">
 </p>
 
 The entites should not be visible unless you enter debug mode with F1
@@ -693,7 +693,7 @@ void FoWEntity::ApplyMaskToTiles(std::vector<iPoint>tilesAffected)
 When you are done with this TODO you should see this when you execute the project:
 
 <p align="center">
-<img src="https://media.giphy.com/media/cLTalUXKyU0PGgcXvW/giphy.gif" width="700">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/TODOs/TODO%203.gif" width="700">
 </p>
 
 Altough the Mask has been applied note that it doesn't move with the entites, and also the entites are not visible yet (unless you are in debug mode).
@@ -773,7 +773,7 @@ void Player::HandleInput(float dt)
 ```
 When you finish this series of TODO's you should end up with a result like this:
 <p align="center">
-<img src="https://media.giphy.com/media/Ph0wD6kyY3Zn5aSTuo/giphy.gif" width="700">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/TODOs/TODO%204.gif" width="700">
 </p>
 
 The mask now moves with the entites but the entites are still not visible. You can also spawn more friendy entites whit left click.
@@ -831,7 +831,7 @@ bool FoWManager::CheckTileVisibility(iPoint mapPos)const
 
 When you finish this series of TODO's you should end up with a result like this:
 <p align="center">
-<img src="https://media.giphy.com/media/f4UARROy2bqOj6pTQ5/giphy.gif" width="700">
+<img src="https://raw.githubusercontent.com/oscarpm5/Fog-of-War---Research-Project/master/docs/TODOs/TODO%205.gif" width="700">
 </p>
 
 And with this, you are done!
