@@ -155,6 +155,7 @@ Our approach will consist of bitmasking sub-pixels. Altough by the name it may s
 
 <p align="center">
 <img src="https://media.giphy.com/media/f5dCaMsbqBjk1vx5gN/giphy.gif" width="700">
+</p>
 
 To make the system work we first need a FoW map, an array representing every tile in our 2D map. We will use the fog & shroud type of fog explained above, so we will need two "layers" for the map, one for the shroud and another for the fog. The array we will use consists of a struct with two numbers, one for each layer. 
 This is how it looks in code: 
