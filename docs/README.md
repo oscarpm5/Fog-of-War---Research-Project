@@ -23,7 +23,7 @@ With only two basic parameters we can define almost every videogame's FoW:
 
 ### Fog / Fog & Shroud
 This first parameter depends on the kind of videogame we are willing to make and its intended features. Basically, games with FoW can be divided into two: the ones with only fog and the ones with fog and shroud.
-The ones with only fog are the ones that do not care so much about exploring, they instead focus on hidding information. As a player you see all the terrain but you cannot see the enemies or buidings, or at least not in real time but a representation of their state the last tile you saw that area.
+The ones with only fog are the ones that do not care so much about exploring, they instead focus on hidding information. As a player you see all the terrain at half opacity (unless you have units there, then you see the terrain as it should be) but you cannot see the enemies or buidings, or at least not in real time but a representation of their state the last tile you saw that area.
 
 An example of a game that consist ony of visible areas and foggy areas is League of Legends. It comes up with two interesting additions to the system: bushes that are always fogged from the outside and wards that clear vision for you.
 
