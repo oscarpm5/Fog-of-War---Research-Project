@@ -13,6 +13,8 @@ You can check the project repository [HERE](https://github.com/oscarpm5/Fog-of-W
 - UP,DOWN,LEFT,RIGHT ARROWS: Controls friendy entities movement (entity marked as blue)
 - LEFT CLICK (hold): Previews the position where you are going to create a friendly entity. (It changes with the cursor position)
 - LEFT CLICK (release): Spawns a friendly entity on cursor position
+- Esc: Closes the application.
+
 
 ## Debug keys
 
