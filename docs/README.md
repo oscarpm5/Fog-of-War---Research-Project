@@ -153,7 +153,7 @@ But what if we cast rays only at angles where we know walls begin or end? The tr
 # Selected Approach
 Our approach will consist of bitmasking sub-pixels. Altough by the name it may seem hard to comprehend I assure you it is easier to understand than you think. 
 
-To make the system work we fisrt need a FoW map, an array representing every tile in our 2D map. We will use the fog & shroud type of fog explained above, so we will need two "layers" for the map, one for the shroud and another for the fog. The array we will use consists of a struct with two numbers, one for each layer. 
+To make the system work we first need a FoW map, an array representing every tile in our 2D map. We will use the fog & shroud type of fog explained above, so we will need two "layers" for the map, one for the shroud and another for the fog. The array we will use consists of a struct with two numbers, one for each layer. 
 This is how it looks in code: 
 
 ```cpp
