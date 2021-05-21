@@ -848,12 +848,12 @@ When you finish this series of TODO's you should end up with a result like this:
 And with this, you are done!
 
 ## Homework
-Well done! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.<br><br>
+Good job! If you have arrived here it means that you have finished all the TODO's, well done. Now it is time for homework to see if you have understood the basics.<br><br>
 First check the Fow Manager module's function DrawFoWMap() and make sure you understand how it draws the FoW tiles. Then try to create a precomputed shape mask by yourself: You will only need to go to the FoW Manager header file and search for a variable named "circle masks"; you can then create an array of defines just as the ones that are already set there for you. <br>
 Note that every time that you create a new mask you have to increment the number [4] next to the variable name. Feel free to experiment with new shapes!
 
 ## Possible Improvements
-The most imporant one is timing, think about when you need to update the FoW map, it doesn't need to be every frame, neither every time a unit is moved (as it is set in my code). You can combine the unit move check with a timer to perform the check every now and then. Between 0.25 and 0.5 sec will be fine in most cases.<br><br>
+The most important one is timing, think about when you need to update the FoW map, it doesn't need to be every frame, neither every time a unit is moved (as it is set in my code). You can combine the unit move check with a timer to perform the check every now and then. Between 0.25 and 0.5 sec will be fine in most cases.<br><br>
 
 I now have a FoW entity for every entity of the project, which keeps the project at a steady 60+ fps even with 100+ units. Nevertheless, you should consider grouping your entites and let them have just one FoW Entity for each group in case you want to have a lot of units toghether in one place to avoid re-checking the same tiles over and over again.<br><br>
 
