@@ -5,7 +5,7 @@ subject Project 2, under supervision of lecturer [Marc Garrigó](https://www.lin
 You can check the project repository [HERE](https://github.com/oscarpm5/Fog-of-War---Research-Project) to get acces to the source files and the project website [HERE](https://oscarpm5.github.io/Fog-of-War---Research-Project/) for a detailed article about Fog of War in Videogames.
 
 # Introduction
-In this document we will take a look at what is Fog ow War, the different aproaches used in videogames, the different types of fog of war tat exist and we will finally explain how to implement it in our own videogame using some exercises to better comprehend the process.
+In this document we will take a look at what is Fog of War, the different aproaches used in videogames, the different types of fog of war tat exist and we will finally explain how to implement it in our own videogame using some exercises to better comprehend the process.
 
 ## Terminology - What is Fog of War?
 Fog of war, FoW from now on, is a term used in armed conflicts that was first described in the book "The Fog of War" by Carl von Clausewitz. The expression was later used by generals during the 1st and the 2nd World War and refers to the uncertainty in situational awareness (that is the perception of environmental elements and events, the comprehension of their meaning, and the projection of their future status) experienced by participants in military operations.
